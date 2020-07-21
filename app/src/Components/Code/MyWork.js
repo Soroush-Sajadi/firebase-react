@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
+import * as firebase from 'firebase';
 import '../Style/MyWork.css';
 
 function MyWork({ language, uppDateTitle }) {
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState('Loading');
   
-  const getData = async () => {
-    if ( JSON.parse(window.localStorage.getItem('data')) === null ) {
-      await fetch (`http://localhost:3000/`)
-        .then(res => res.json())
-        .then(res => saveDataToLocalStorage('data',res))
-    }
-    getDataFromLocalStorage('data')
+  const getData = () => {
+    const rootRef = firebase.database().ref().child('cathgory');
+    rootRef.on('value', snap => {
+        console.log('jasbd',snap.val())
+        setData(snap.val())
+    })
   }
-  const saveDataToLocalStorage = (name, data) => {
-    window.localStorage.setItem(name, JSON.stringify(data));
-  }
+  // const saveDataToLocalStorage = (name, data) => {
+  //   window.localStorage.setItem(name, JSON.stringify(data));
+  // }
 
-  const getDataFromLocalStorage = (name) => {
-    setData(JSON.parse(window.localStorage.getItem(name)));
-  }
+  // const getDataFromLocalStorage = (name) => {
+  //   setData(JSON.parse(window.localStorage.getItem(name)));
+  // }
   useEffect(()=> {
     getData()
+    
   },[]);
 
-  const getTitle = (e) => {
-    uppDateTitle(e.target.getAttribute('value'))
-  }
+  // const getTitle = (e) => {
+  //   uppDateTitle(e.target.getAttribute('value'))
+  // }
 
   return (
     <div className="my-work-wrapper">
-      {data.length === 0 ? loading 
+      {/* {data.length === 0 ? loading 
       :
       data.map((item,) => 
         <div className="my-work">
@@ -48,7 +49,9 @@ function MyWork({ language, uppDateTitle }) {
         </div>
         
       )
-      }
+      } */}
+      {data.length === 0 ? loading: data.map(item => <h1>{item.title}</h1>)}
+      <h1></h1>
     </div>
   );
 }

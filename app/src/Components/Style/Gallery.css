@@ -1,0 +1,53 @@
+.wrapper {
+    margin-top: 100px;
+}
+HTML, BODY {
+    height: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+  }
+  
+  BODY {
+    background-color: #222;
+   
+  }
+  
+  .wrapper {
+    position: relative;
+    -webkit-box-flex: 1;
+            flex-grow: 1;
+    margin: auto;
+    max-width: 1200px;
+    max-height: 1200px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 2vmin;
+    justify-items: center;
+    -webkit-box-align: center;
+            align-items: center;
+    margin-top: 120px;        
+  }
+  
+  .wrapper IMG {
+    z-index: 1;
+    grid-column: span 2;
+    max-width: 100%;
+    margin-bottom: -52%;
+    -webkit-clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transition: all .25s;
+    transition: all .25s;
+  }
+  IMG:nth-child(7n + 1) {
+    grid-column: 2 / span 2;
+  }
+  .wrapper IMG:hover {
+    z-index: 2;
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+  

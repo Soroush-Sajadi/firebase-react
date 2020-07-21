@@ -1,0 +1,96 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.header-wrapper {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    background-color: black;
+    position: fixed;
+    overflow: hidden;
+    top:0
+}
+.header {
+   width: 30%;
+   height: 80px;
+}
+
+.header-logo {
+    width: 20%;
+    height: 80px;
+}
+
+.header-logo img {
+
+    height: 80px;
+}
+
+.header ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.header ul li {
+    margin: 0 1% 0 0;
+    color: white;
+    font-size: 16px;
+    margin-top: 30%;
+    overflow: hidden;
+}
+.header ul li :hover {
+    transform: translate(0, -4px);
+}
+.header ul li :hover:after {
+    transform: translate(0);
+}
+
+
+.header ul li p {
+    width: 100px;
+}
+
+.header-flag {
+    width: 45%;
+    height: 80px;
+}
+.header-flag img {
+    float: right;
+    width: 11%;
+    height: 50px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* .header-flag {
+position: relative;
+display: inline-block;
+} */
+
+.languages {
+    display: none;
+    background-color: #f1f1f1;
+    width: 20%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    float:right;
+    cursor: pointer;
+
+
+}
+
+.languages p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.languages p:hover {
+    background-color: #ddd;
+}
+
+.header-flag:hover .languages {display: block;}
+
+/* .dropdown:hover .dropbtn {background-color: #3e8e41;} */

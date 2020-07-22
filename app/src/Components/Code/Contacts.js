@@ -32,7 +32,7 @@ console.log(mail)
 			<textarea placeholder="Type your message here...." tabindex="5" required></textarea>
 		  </fieldset>
 		  <fieldset>
-			<input className="button" onclick={sendMail} value="submit" name="submit" type="submit" id="contact-submit" data-submit="...Sending"  />
+			<input className="button" onClick={sendMail} value="submit" name="submit" type="submit" id="contact-submit" data-submit="...Sending"  />
 		  </fieldset>
 		</div>
 	  </div>

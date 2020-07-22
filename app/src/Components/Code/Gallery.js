@@ -3,34 +3,41 @@ import '../Style/Gallery.css';
 
 function Gallery({ title }) {
 	const [ data, setData ] = useState([]);
-	const [ loading, setLoading ] = useState('Loading')
+	const [ loading, setLoading ] = useState('Loading');
+	const [ album, setAlbum ] = useState('');
 
 	const getData = async () => {
-		if ( JSON.parse(window.localStorage.getItem(`${title}`)) === null ) {
-			await fetch(`http://localhost:3000/images/${title}`)
+		// if ( JSON.parse(window.localStorage.getItem(`${title}`)) === null ) {
+			await fetch(`http://localhost:3000/images`)
 				.then(res => res.json())
-				.then(res => saveDataToLocalStorage(`${title}`,res))
-		}
-		getDataFromLocalStorage(`${title}`)
+				.then(res => setData(res))
+		// }
+		// getDataFromLocalStorage(`${title}`)
 	}
-	const saveDataToLocalStorage = (name, data) => {
-    window.localStorage.setItem(name, JSON.stringify(data));
-  }
+	const getName = () => {
+		const albumName = window.location.href.split('/').pop()
+		const albumNew = albumName.charAt(0).toUpperCase() + albumName.slice(1)
+		setAlbum(albumNew);
+	}
+	// const saveDataToLocalStorage = (name, data) => {
+    // window.localStorage.setItem(name, JSON.stringify(data));
+//   }
 
-  const getDataFromLocalStorage = (name) => {
-    setData(JSON.parse(window.localStorage.getItem(name)));
-  }
+//   const getDataFromLocalStorage = (name) => {
+    // setData(JSON.parse(window.localStorage.getItem(name)));
+//   }
 	useEffect(() => {
 		getData();
+		getName();
 	},[])
-	console.log(data)
+	
   return (
 		<>
 			{data.length === 0 ? loading 
 			:
-			<div class = "wrapper">
+			<div className = "wrapper">
 				{data.map((item, i)=> 
-    				<img src={item.picture}/>
+					<img key={i} src={require(`../../images/${album}/${album}${item.id}.jpg`)}/>
 				)}
 			</div>
 			}

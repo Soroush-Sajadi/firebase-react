@@ -52,11 +52,18 @@ app.use(bodyParser.json());
 // end points
 
 app.get('/', (req, res) => {
-    const rootRef = firebase.database().ref().child('cathgory');
+    const rootRef = firebase.database().ref().child('cathegory');
     rootRef.on('value', snap => {
         res.json(snap.val());
     })
     
+})
+
+app.get('/images', (req, res) => {
+    const rootRef = firebase.database().ref().child('images');
+    rootRef.on('value', snap => {
+        res.json(snap.val());
+    })
 })
 
 // cathegoriesName.map(item => app.get(`/cathegory/${item}`, (req, res) => {

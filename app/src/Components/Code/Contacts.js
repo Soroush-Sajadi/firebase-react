@@ -5,7 +5,8 @@ function Contacts() {
 	const [ mail, setMail ] = useState(false);
 	const [ error, setError ] = useState('');
 	const [ emailResponse, setEmailResponse ] = useState('');
-	const [userInput, setUserInput] = useReducer(
+	const [ showTel, setShowTel ] = useState(false)
+	const [ userInput, setUserInput ] = useReducer(
 		(state, newState) => ({...state, ...newState}),
 		{
 		name: '',
@@ -22,6 +23,10 @@ function Contacts() {
 
 	const sendMail = () => {
 		setMail(true)
+	}
+
+	const showTelNumber = () => {
+		setShowTel(!showTel)
 	}
 
 	const postData = async () => {
@@ -49,7 +54,6 @@ function Contacts() {
 		}
 	}
 	
-console.log(userInput)
   return (
 	<div className="wrapper-contact">
 		{mail ? 
@@ -57,15 +61,22 @@ console.log(userInput)
 		<div id="contact" action=""  >
 		  {emailResponse === 'Email sent' ? 
 		  <>
-			  <h4>We have recived your message</h4>
+			  <h4 style={{color: '#4caf50'}}>We have recived your message!</h4>
 			  <h4>We will answer your question in a very short time</h4>
 			  </>
 			  :
 			  <>
 			<h3>Ask Me</h3>
-			<h4>We will answer your question in a very short time</h4>
+			<h4>Write your question in the box bellow.</h4>
 			<h5>{ error }</h5>
 			</>
+		}
+		{emailResponse === 'Internal Error' ?
+			<>
+				<h4 style={{color: '#e2271a'}}>Email is not valid!</h4>
+			</>
+			:
+			null
 		}
 		  <fieldset>
 			<input name="name" value={userInput.name} onChange={handleChange} placeholder="Your name" type="text" tabindex="1" required autofocus />
@@ -91,18 +102,22 @@ console.log(userInput)
 				<div className="face1"></div>
 				<div className="face2"></div>
 				</div>
+			{/* <a href="https://www.facebook.com/makankamfar/"> */}
 			<div className="hexagon">
 				Facebook
 				<div className="face1"></div>
 				<div className="face2"></div>
 			</div>
+			{/* </a> */}
+			{/* <a href ="https://www.instagram.com/makan.photographer/?fbclid=IwAR2hxzY324MmirhavUb7VbD38bsZeGQsPPKuWciOuEe6S5e-XUA9vzrqkk4"> */}
 			<div className="hexagon">
 				Instagram
 				<div className="face1"></div>
 				<div className="face2"></div>
 			</div>
-			<div className="hexagon">
-				Tel
+			{/* </a> */}
+			<div className="hexagon" onClick={ showTelNumber }>
+				 { showTel ? <p style={{fontSize:'12px'}}>+46-76 211 57 51</p> : <p>Tel</p> } 
 				<div className="face1"></div>
 				<div className="face2"></div>
 			</div>

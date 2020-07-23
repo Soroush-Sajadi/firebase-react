@@ -219,3 +219,7 @@ fieldset {
 :-ms-input-placeholder {
   color: #888;
 }
+.tel {
+  display: flex;
+  flex-direction: column;
+}

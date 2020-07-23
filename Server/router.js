@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const path = require('path')
-const firebase = require('firebase')
+const path = require('path');
+const firebase = require('firebase');
+require('dotenv').config();
+const { sendMail } = require('./helperFunctions/sendMail')
 //const fetch = require('node-fetch');
 //__________________________________________________________________________________________________________________________//
 // Data Base
@@ -66,6 +68,21 @@ app.get('/images', (req, res) => {
     })
 })
 
+app.post('/message', (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const topic = req.body.topic;
+    const message = req.body.message;
+    sendMail(name, email, topic, message, (err, data) => {
+        if ( err ) {
+            res.json('Internal Error')
+        } else {
+            res.json('Email sent')
+        }
+    })
+    console.log(email)
+})
+
 // cathegoriesName.map(item => app.get(`/cathegory/${item}`, (req, res) => {
 //     const pathToImage = `${dirCathegory}/${item}.jpg`
 //   res.sendFile(pathToImage);
@@ -112,7 +129,6 @@ app.get('/images', (req, res) => {
 //         res.json(portraitData);
 //     }
 // })
-
 
 const port = 3000;
 app.listen(port, () => console.log(`listening on port ${port}!`))

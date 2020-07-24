@@ -15,16 +15,18 @@
 .header {
    width: 30%;
    height: 80px;
+   margin-left: 5px;
 }
 
 .header-logo {
-    width: 20%;
+    width: 15%;
     height: 80px;
 }
 
 .header-logo img {
 
-    height: 80px;
+    height: 60px;
+    margin-top: 5px;
 }
 
 .header ul {
@@ -34,6 +36,7 @@
 }
 
 .header ul li {
+
     margin: 0 1% 0 0;
     color: white;
     font-size: 16px;
@@ -53,13 +56,13 @@
 }
 
 .header-flag {
-    width: 45%;
+
+    width: 60%;
     height: 80px;
 }
 .header-flag img {
     float: right;
-    width: 11%;
-    height: 50px;
+    width: 50px;
     margin-top: 15px;
     cursor: pointer;
 }
@@ -90,7 +93,28 @@ display: inline-block;
 .languages p:hover {
     background-color: #ddd;
 }
+.menu {
+    display: none;
+}
 
 .header-flag:hover .languages {display: block;}
+
+@media screen and (max-width: 600px) { 
+    .header ul li {
+        display: none;
+    }
+    .header-flag img {
+        display: none;
+    }
+    .header-flag:hover .languages {
+        display: none;
+    }
+    .menu{
+        display: block;
+        width: 52px;
+        height: 59px;
+        margin: 2%;
+    }
+  }
 
 /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */

@@ -17,11 +17,5 @@
    left: 50%;
    transform: translate(-50%, -50%);
  }
-@media screen and (max-width: 1024px) { /* Specific to this particular image */
-   .home-wrapper img {
-     position: fixed;
-     min-height: 100%;
-     height: auto;
-   }
- }
+
 

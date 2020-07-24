@@ -223,3 +223,8 @@ fieldset {
   display: flex;
   flex-direction: column;
 }
+.close {
+  width: 24px;
+  cursor: pointer;
+  
+}

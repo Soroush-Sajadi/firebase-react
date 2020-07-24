@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react';
+import close from '../../images/Logo/close.svg'
 import '../Style/Contacts.css';
 
 function Contacts() {
@@ -22,7 +23,7 @@ function Contacts() {
 	}
 
 	const sendMail = () => {
-		setMail(true)
+		setMail(!mail)
 	}
 
 	const showTelNumber = () => {
@@ -57,8 +58,10 @@ function Contacts() {
   return (
 	<div className="wrapper-contact">
 		{mail ? 
-		<div class="container" >  
+		<div class="container" > 
+			 
 		<div id="contact" action=""  >
+		<img className="close" src={close} alt="close" onClick={sendMail}/>
 		  {emailResponse === 'Email sent' ? 
 		  <>
 			  <h4 style={{color: '#4caf50'}}>We have recived your message!</h4>

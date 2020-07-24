@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom'
-import logo from '../../images/Logo/Logo.png'
+import logo from '../../images/Logo/Logo-white.png'
+import menu from '../../images/Logo/menu.png'
 import flagBritish from '../../images/Flag/uk.svg'
 import flagSwedish from '../../images/Flag/sweden.svg'
 import '../Style/Header.css';
@@ -47,6 +48,7 @@ function Header({ uppDateLanguage }) {
               <p value="Svenska" onClick={getLanguage}>Svenska</p>
             </div>
           </div>
+          <img className="menu" src={menu} alt="menu"/>
         </div>
   );
 }

@@ -11,6 +11,7 @@ import './App.css';
 function App() {
   const [ language, setLanguage ] = useState('English');
   const [ title, setTitle ] = useState('');
+  const [ menuState, setMenuState ] = useState(false)
 
   const uppDateLanguage = (childData) => {
     setLanguage(childData);
@@ -19,15 +20,19 @@ function App() {
   const uppDateTitle = (childData) => {
     setTitle(childData);
   }
-  
+
+  const upDateMenuState = (childData) => {
+    setMenuState(childData)
+  }
+  console.log(menuState)
   return (
     <div className="App">
       <BrowserRouter>
-          <Header uppDateLanguage={uppDateLanguage}/>
+          <Header uppDateLanguage={uppDateLanguage} upDateMenuState={upDateMenuState}/>
               <Switch>
                 <Route exact path="/" render={() => <Home />}/>
                 <Route exact path="/my work" render={() => <MyWork language={language} uppDateTitle={uppDateTitle}/>}/>
-                <Route path="/about me" render={() => <AboutMe />}/>
+                <Route path="/about me" render={() => <AboutMe uppDateTitle={uppDateTitle}/>}/>
                 <Route path="/contacts" render={() => <Contacts />} />
                 <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} />} />
               </Switch>

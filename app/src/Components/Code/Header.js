@@ -6,12 +6,20 @@ import flagBritish from '../../images/Flag/uk.svg'
 import flagSwedish from '../../images/Flag/sweden.svg'
 import '../Style/Header.css';
 
-function Header({ uppDateLanguage }) {
+function Header({ uppDateLanguage, upDateMenuState }) {
   const [ language, setLanguage ] = useState('English');
+  const [ menuOpen, setMenuOpen ] = useState(false);
+
   const getLanguage = (e) => {
     setLanguage(e.target.getAttribute('value'));
     uppDateLanguage(e.target.getAttribute('value'));
   }
+
+  const menuState = () => {
+    upDateMenuState(!menuOpen);
+    setMenuOpen(!menuOpen)
+  }
+
   return (
       <div className="header-wrapper">
         <div className="header-logo">
@@ -48,7 +56,9 @@ function Header({ uppDateLanguage }) {
               <p value="Svenska" onClick={getLanguage}>Svenska</p>
             </div>
           </div>
-          <img className="menu" src={menu} alt="menu"/>
+          <div>
+            <img className="menu" src={menu} alt="menu" onClick={menuState}/>
+          </div>
         </div>
   );
 }

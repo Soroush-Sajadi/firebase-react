@@ -24,17 +24,16 @@ function App() {
   const upDateMenuState = (childData) => {
     setMenuState(childData)
   }
-  console.log(menuState)
   return (
     <div className="App">
       <BrowserRouter>
-          <Header uppDateLanguage={uppDateLanguage} upDateMenuState={upDateMenuState}/>
+          <Header uppDateLanguage={uppDateLanguage} menuStateHeader={menuState} upDateMenuState={upDateMenuState}/>
               <Switch>
-                <Route exact path="/" render={() => <Home />}/>
-                <Route exact path="/my work" render={() => <MyWork language={language} uppDateTitle={uppDateTitle}/>}/>
-                <Route path="/about me" render={() => <AboutMe uppDateTitle={uppDateTitle}/>}/>
-                <Route path="/contacts" render={() => <Contacts />} />
-                <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} />} />
+                <Route exact path="/" render={() => <Home menuState={menuState} language={language} upDateMenuState={upDateMenuState} />}/>
+                <Route exact path="/my work" render={() => <MyWork language={language} uppDateTitle={uppDateTitle} upDateMenuState={upDateMenuState}/>}/>
+                <Route path="/about me" render={() => <AboutMe menuState={menuState} language={language} upDateMenuState={upDateMenuState}/>}/>
+                <Route path="/contacts" render={() => <Contacts upDateMenuState={upDateMenuState} />} />
+                <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} upDateMenuState={upDateMenuState} />} />
               </Switch>
       </BrowserRouter>
     </div>

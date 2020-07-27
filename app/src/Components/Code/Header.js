@@ -6,9 +6,9 @@ import flagBritish from '../../images/Flag/uk.svg'
 import flagSwedish from '../../images/Flag/sweden.svg'
 import '../Style/Header.css';
 
-function Header({ uppDateLanguage, upDateMenuState }) {
+function Header({ uppDateLanguage, upDateMenuState, menuStateHeader }) {
   const [ language, setLanguage ] = useState('English');
-  const [ menuOpen, setMenuOpen ] = useState(false);
+  // const [ menuOpen, setMenuOpen ] = useState(false);
 
   const getLanguage = (e) => {
     setLanguage(e.target.getAttribute('value'));
@@ -16,11 +16,12 @@ function Header({ uppDateLanguage, upDateMenuState }) {
   }
 
   const menuState = () => {
-    upDateMenuState(!menuOpen);
-    setMenuOpen(!menuOpen)
+    upDateMenuState(!menuStateHeader);
+    // setMenuOpen(!menuOpen)
   }
-
+  // console.log(menuOpen)
   return (
+    
       <div className="header-wrapper">
         <div className="header-logo">
           <img src={logo} alt="logo" />

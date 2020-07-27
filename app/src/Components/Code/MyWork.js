@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import OpenMenu from './OpenMenu'
 import '../Style/MyWork.css';
 
-function MyWork({ language, uppDateTitle }) {
+function MyWork({ language, uppDateTitle, menuState, upDateMenuState }) {
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState('Loading');
   
@@ -30,7 +31,9 @@ function MyWork({ language, uppDateTitle }) {
   }
 
   return (
-    <div className="my-work-wrapper">
+    <>
+        {!menuState ?
+      <div className="my-work-wrapper">
       {data.length === 0 ? loading 
       :
       data.map((item,) => 
@@ -50,6 +53,11 @@ function MyWork({ language, uppDateTitle }) {
       )
       }
     </div>
+    :
+      <OpenMenu  menuState={menuState} upDateMenuState={upDateMenuState} language={language}/>
+    }
+    </>
+    
   );
 }
 

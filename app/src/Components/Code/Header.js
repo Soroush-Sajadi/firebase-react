@@ -8,7 +8,6 @@ import '../Style/Header.css';
 
 function Header({ uppDateLanguage, upDateMenuState, menuStateHeader }) {
   const [ language, setLanguage ] = useState('English');
-  // const [ menuOpen, setMenuOpen ] = useState(false);
 
   const getLanguage = (e) => {
     setLanguage(e.target.getAttribute('value'));
@@ -17,11 +16,8 @@ function Header({ uppDateLanguage, upDateMenuState, menuStateHeader }) {
 
   const menuState = () => {
     upDateMenuState(!menuStateHeader);
-    // setMenuOpen(!menuOpen)
   }
-  // console.log(menuOpen)
   return (
-    
       <div className="header-wrapper">
         <div className="header-logo">
           <img src={logo} alt="logo" />

@@ -3,7 +3,7 @@ import background from '../../images/Background-Pictures/Background3.jpg'
 import OpenMenu from './OpenMenu'
 import '../Style/Home.css';
 
-function Home({menuState,language, upDateMenuState}) {
+function Home({menuState,language, upDateMenuState, uppDateLanguage}) {
   return (
     <>
     {!menuState ?  
@@ -18,7 +18,7 @@ function Home({menuState,language, upDateMenuState}) {
       Respect article painted cottage he is offices parlors. </h3>
     </div>
     :
-      <OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState}/>
+      <OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState} uppDateLanguage={uppDateLanguage}/>
     }
     </>
      

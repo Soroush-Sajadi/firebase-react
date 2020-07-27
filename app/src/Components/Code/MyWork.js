@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import OpenMenu from './OpenMenu'
 import '../Style/MyWork.css';
 
-function MyWork({ language, uppDateTitle, menuState, upDateMenuState }) {
+function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLanguage }) {
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState('Loading');
   
@@ -54,7 +54,7 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState }) {
       }
     </div>
     :
-      <OpenMenu  menuState={menuState} upDateMenuState={upDateMenuState} language={language}/>
+      <OpenMenu  menuState={menuState} upDateMenuState={upDateMenuState} language={language} uppDateLanguage={uppDateLanguage}/>
     }
     </>
     

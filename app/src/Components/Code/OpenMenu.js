@@ -1,10 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
+import flagBritish from '../../images/Flag/uk.svg';
+import flagSwedish from '../../images/Flag/sweden.svg';
 import '../Style/OpenMenu.css';
 
-function OpenMenu({ language, upDateMenuState ,menuState }) {
+function OpenMenu({ language, upDateMenuState ,menuState, uppDateLanguage }) {
     const updateState = () => {
-        upDateMenuState(false)
+      upDateMenuState(false)
+    }
+    const updateLanguageState = () => {
+      uppDateLanguage(language === 'English' ? 'Svenska': 'English' )
     }
   return (
      <div className="Open-menu-wrapper">
@@ -32,6 +37,9 @@ function OpenMenu({ language, upDateMenuState ,menuState }) {
          </NavLink>
        </ul>
        </nav>
+       <div className="flag-mobile" onClick={updateLanguageState}>
+        <img src={language === 'English' ? flagBritish : flagSwedish} alt="flag" />
+       </div>
     </div>
   );
 }

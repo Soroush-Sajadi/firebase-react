@@ -1,8 +1,13 @@
 .Open-menu-wrapper {
-    margin-top: 100px;
+    margin-top: 55%;
 }
 .header-open-menu ul li p {
     font-size: 25px;
     margin-top: 10px;
     color: white;
+}
+.flag-mobile img {
+    width: 50px;
+    margin-top: 15px;
+    cursor: pointer;
 }

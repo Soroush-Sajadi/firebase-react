@@ -3,7 +3,7 @@ import OpenMenu from './OpenMenu';
 import close from '../../images/Logo/close.svg'
 import '../Style/Contacts.css';
 
-function Contacts({menuState, language,upDateMenuState}) {
+function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 	const [ mail, setMail ] = useState(false);
 	const [ error, setError ] = useState('');
 	const [ emailResponse, setEmailResponse ] = useState('');
@@ -131,7 +131,7 @@ function Contacts({menuState, language,upDateMenuState}) {
 			}
 		</div>
 		:
-		<OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState} />
+		<OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState} uppDateLanguage={uppDateLanguage} />
 		}
 	  </>
 	

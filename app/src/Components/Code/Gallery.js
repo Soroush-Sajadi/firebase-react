@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import OpenMenu from './OpenMenu'
 import '../Style/Gallery.css';
 
-function Gallery({ menuState,language, upDateMenuState }) {
+function Gallery({ menuState,language, upDateMenuState, uppDateLanguage }) {
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState('Loading');
 	const [ album, setAlbum ] = useState('');
@@ -46,7 +46,7 @@ function Gallery({ menuState,language, upDateMenuState }) {
 			}
 		</div>
 		:
-		<OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState}/>
+		<OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState} uppDateLanguage={uppDateLanguage}/>
 		}
 	  </>
   );

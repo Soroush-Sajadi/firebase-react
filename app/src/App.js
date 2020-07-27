@@ -30,10 +30,10 @@ function App() {
           <Header uppDateLanguage={uppDateLanguage} menuStateHeader={menuState} upDateMenuState={upDateMenuState}/>
               <Switch>
                 <Route exact path="/" render={() => <Home menuState={menuState} language={language} upDateMenuState={upDateMenuState} />}/>
-                <Route exact path="/my work" render={() => <MyWork language={language} uppDateTitle={uppDateTitle} upDateMenuState={upDateMenuState} menuState={menuState} />}/>
+                <Route exact path="/my work" render={() => <MyWork language={language} language={language} uppDateTitle={uppDateTitle} upDateMenuState={upDateMenuState} menuState={menuState} />}/>
                 <Route path="/about me" render={() => <AboutMe menuState={menuState} language={language} upDateMenuState={upDateMenuState}/>}/>
-                <Route path="/contacts" render={() => <Contacts upDateMenuState={upDateMenuState} menuState={menuState} />} />
-                <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} upDateMenuState={upDateMenuState} menuState={menuState}  />} />
+                <Route path="/contacts" render={() => <Contacts language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
+                <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} language={language} upDateMenuState={upDateMenuState} menuState={menuState}  />} />
               </Switch>
       </BrowserRouter>
     </div>

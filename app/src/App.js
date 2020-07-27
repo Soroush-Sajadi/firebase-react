@@ -33,7 +33,7 @@ function App() {
                 <Route exact path="/my work" render={() => <MyWork language={language} language={language} uppDateTitle={uppDateTitle} upDateMenuState={upDateMenuState} menuState={menuState} />}/>
                 <Route path="/about me" render={() => <AboutMe menuState={menuState} language={language} upDateMenuState={upDateMenuState}/>}/>
                 <Route path="/contacts" render={() => <Contacts language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
-                <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} language={language} upDateMenuState={upDateMenuState} menuState={menuState}  />} />
+                <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery title={title} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
               </Switch>
       </BrowserRouter>
     </div>

@@ -28,6 +28,7 @@
     color: rgba(255,255,255,.5);
     cursor: pointer;
     transition: color 500ms ease, text-shadow 500ms ease;
+    margin-top: 25px;
   }
   .hexagon:hover {
     color: #fff;

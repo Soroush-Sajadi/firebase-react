@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import OpenMenu from './OpenMenu'
 import '../Style/Gallery.css';
 
-function Gallery({ title }) {
+function Gallery({ menuState,language, upDateMenuState }) {
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState('Loading');
 	const [ album, setAlbum ] = useState('');
@@ -32,7 +33,9 @@ function Gallery({ title }) {
 	},[])
 	
   return (
-		<>
+	  <>
+		{!menuState ?
+		<div>
 			{data.length === 0 ? loading 
 			:
 			<div className = "wrapper">
@@ -41,7 +44,11 @@ function Gallery({ title }) {
 				)}
 			</div>
 			}
-		</>
+		</div>
+		:
+		<OpenMenu language={language} upDateMenuState={upDateMenuState} menuState={menuState}/>
+		}
+	  </>
   );
 }
 

@@ -39,7 +39,7 @@
     margin: 0 10px 0 0;
     color: white;
     font-size: 16px;
-    margin-top: 30%;
+    margin-top: 25%;
     overflow: hidden;
 }
 .header ul li :hover {
@@ -52,6 +52,8 @@
 
 .header ul li p {
     width: 100px;
+    font-variant: small-caps;
+    font-size: 20px;
 }
 
 .empty-space {

@@ -44,6 +44,9 @@ function Header({ language, uppDateLanguage, upDateMenuState, menuStateHeader })
             </NavLink>
           </ul>
           </nav>
+          <div className="empty-space">
+
+          </div>
           <div className="header-flag">
             <img src={language === 'Svenska' ? flagSwedish: flagBritish} alt="Language" onClick={updateLanguageState} />
             

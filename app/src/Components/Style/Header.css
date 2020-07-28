@@ -13,7 +13,7 @@
     top:0
 }
 .header {
-   width: 30%;
+   width: 54%;
    height: 80px;
    margin-left: 5px;
 }
@@ -31,13 +31,12 @@
 
 .header ul {
     display: flex;
-    justify-content: space-between;
     list-style-type: none;
 }
 
 .header ul li {
 
-    margin: 0 1% 0 0;
+    margin: 0 10px 0 0;
     color: white;
     font-size: 16px;
     margin-top: 30%;
@@ -55,9 +54,13 @@
     width: 100px;
 }
 
+.empty-space {
+    width: 24%;
+}
+
 .header-flag {
 
-    width: 60%;
+    width: 29%;
     height: 80px;
 }
 .header-flag img {
@@ -116,6 +119,7 @@ display: inline-block;
         height: 59px;
         margin-left: -26%;
         margin-top: 22%;
+        cursor: pointer;
     }
   }
    

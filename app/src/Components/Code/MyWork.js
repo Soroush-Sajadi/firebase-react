@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Spinner } from 'react-spinners-css';
 import OpenMenu from './OpenMenu'
 import '../Style/MyWork.css';
 
@@ -34,7 +35,7 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
     <>
         {!menuState ?
       <div className="my-work-wrapper">
-      {data.length === 0 ? loading 
+      {data.length === 0 ? <div className="loading"><Spinner color="white" size={200} /></div> 
       :
       data.map((item,) => 
         <div className="my-work">

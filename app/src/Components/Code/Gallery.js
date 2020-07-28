@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Spinner } from 'react-spinners-css';
 import OpenMenu from './OpenMenu'
 import '../Style/Gallery.css';
 
@@ -36,7 +37,7 @@ function Gallery({ menuState,language, upDateMenuState, uppDateLanguage }) {
 	  <>
 		{!menuState ?
 		<div>
-			{data.length === 0 ? loading 
+			{data.length === 0 ? <div className="loading"><Spinner color="white" size={200} /></div>
 			:
 			<div className = "wrapper">
 				{data.map((item, i)=> 

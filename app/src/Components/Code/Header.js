@@ -6,12 +6,10 @@ import flagBritish from '../../images/Flag/uk.svg'
 import flagSwedish from '../../images/Flag/sweden.svg'
 import '../Style/Header.css';
 
-function Header({ uppDateLanguage, upDateMenuState, menuStateHeader }) {
-  const [ language, setLanguage ] = useState('English');
+function Header({ language, uppDateLanguage, upDateMenuState, menuStateHeader }) {
 
-  const getLanguage = (e) => {
-    setLanguage(e.target.getAttribute('value'));
-    uppDateLanguage(e.target.getAttribute('value'));
+  const updateLanguageState = () => {
+    uppDateLanguage(language === 'English' ? 'Svenska': 'English' )
   }
 
   const menuState = () => {
@@ -47,11 +45,8 @@ function Header({ uppDateLanguage, upDateMenuState, menuStateHeader }) {
           </ul>
           </nav>
           <div className="header-flag">
-            <img src={language === 'Svenska' ? flagSwedish: flagBritish} alt="Language" />
-            <div className="languages">
-              <p value ="English" onClick={getLanguage}>English</p>
-              <p value="Svenska" onClick={getLanguage}>Svenska</p>
-            </div>
+            <img src={language === 'Svenska' ? flagSwedish: flagBritish} alt="Language" onClick={updateLanguageState} />
+            
           </div>
           <div>
             <img className="menu" src={menu} alt="menu" onClick={menuState}/>

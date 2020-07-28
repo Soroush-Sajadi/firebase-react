@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
 import flagBritish from '../../images/Flag/uk.svg';
 import flagSwedish from '../../images/Flag/sweden.svg';
 import '../Style/OpenMenu.css';
 
 function OpenMenu({ language, upDateMenuState ,menuState, uppDateLanguage }) {
+
     const updateState = () => {
       upDateMenuState(false)
     }
     const updateLanguageState = () => {
       uppDateLanguage(language === 'English' ? 'Svenska': 'English' )
     }
+
+    window.addEventListener("resize", () => {
+      return window.innerWidth >= 600 ? upDateMenuState(!menuState): null
+    });
+
   return (
-     <div className="Open-menu-wrapper">
-       <nav className="header-open-menu" onClick={updateState}>
+     <div className="open-menu-wrapper">
+       <nav className="header-open-menu"  onClick={updateState}>
        <ul>
          <NavLink to="/" style={{ textDecoration: 'none'}}>
            <li>

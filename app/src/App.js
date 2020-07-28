@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-          <Header uppDateLanguage={uppDateLanguage} menuStateHeader={menuState} upDateMenuState={upDateMenuState}/>
+          <Header language={language} uppDateLanguage={uppDateLanguage} menuStateHeader={menuState} upDateMenuState={upDateMenuState}/>
               <Switch>
                 <Route exact path="/" render={() => <Home uppDateLanguage={uppDateLanguage} menuState={menuState} language={language} upDateMenuState={upDateMenuState} />}/>
                 <Route exact path="/my work" render={() => <MyWork uppDateLanguage={uppDateLanguage} language={language} language={language} uppDateTitle={uppDateTitle} upDateMenuState={upDateMenuState} menuState={menuState} />}/>

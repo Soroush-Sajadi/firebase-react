@@ -5,7 +5,6 @@ import '../Style/Gallery.css';
 
 function Gallery({ menuState,language, upDateMenuState, uppDateLanguage }) {
 	const [ data, setData ] = useState([]);
-	const [ loading, setLoading ] = useState('Loading');
 	const [ album, setAlbum ] = useState('');
 
 	const getData = async () => {

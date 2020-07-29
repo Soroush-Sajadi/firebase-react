@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const firebase = require('firebase');
+require('@firebase/storage')
 require('dotenv').config();
 const { sendMail } = require('./helperFunctions/sendMail')
 //const fetch = require('node-fetch');
+global.XMLHttpRequest = require("xhr2");
+
 //__________________________________________________________________________________________________________________________//
 // Data Base
 const bodyParser = require('body-parser');
@@ -16,6 +20,8 @@ const config = {
     storageBucket: 'makan-5c9d1.appspot.com'
   };
 firebase.initializeApp(config);
+const storage = firebase.storage();
+
 //______________________________________________________________________________________________________________________________________//
 // Helper functions
 // const { cathegoriesName } = require('./helperFunctions/cathegoriesName');
@@ -49,6 +55,7 @@ firebase.initializeApp(config);
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 //___________________________________________________________________________________________________________________________________________
 // end points
@@ -80,7 +87,27 @@ app.post('/message', (req, res) => {
             res.json('Email sent')
         }
     })
-    console.log(email)
+})
+
+app.post('/cathegoryChange', (req, res) => {
+    // const image = req.body.image;
+    // const url = req.body.url
+    if (req.files) {
+        const uploadImage = storage.ref(`cathegory/${req.files.file.name}`).put(req.files.file.data)
+        uploadImage.on('state_changed',
+        (snapshot) => {
+
+        },
+        (error) => {
+            console.log(error)
+        },
+        () => {
+            console.log('asd')
+            storage.ref('cathegory').child(req.files.file.name).getDownloadURL().then(url => {
+                console.log(url)
+            })
+        });
+    }
 })
 
 // cathegoriesName.map(item => app.get(`/cathegory/${item}`, (req, res) => {
@@ -132,3 +159,4 @@ app.post('/message', (req, res) => {
 
 const port = 3000;
 app.listen(port, () => console.log(`listening on port ${port}!`))
+

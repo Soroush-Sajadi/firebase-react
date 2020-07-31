@@ -6,7 +6,7 @@ import MyWork from './Components/Code/MyWork';
 import AboutMe from './Components/Code/AboutMe';
 import Contacts from './Components/Code/Contacts';
 import Gallery from './Components/Code/Gallery';
-import Remote from './Components/Code/Remote'
+import Remote from './Components/Code/RemoteMyWork'
 import './App.css';
 
 function App() {

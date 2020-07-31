@@ -68,8 +68,10 @@ app.get('/', (req, res) => {
     
 })
 
-app.get('/images', (req, res) => {
-    const rootRef = firebase.database().ref().child('images');
+app.get('/images/:id', (req, res) => {
+    album = req.params.id;
+    console.log('asdas',album)
+    const rootRef = firebase.database().ref().child(`${album}`);
     rootRef.on('value', snap => {
         res.json(snap.val());
     })
@@ -90,14 +92,9 @@ app.post('/message', (req, res) => {
 })
 
 app.post('/cathegoryChange',async (req, res) => {
-            console.log(req.files)
-            
-     
-
     if (req.files) {
         const reg =/(?<=\F).*\g/;
         const name = req.files.file.name.match(reg)[0]
-        
         const uploadImage = storage.ref(`cathegory/${name}`).put(req.files.file.data)
         // const deleteImage = storage.ref().child('cathegory/Wedding.jpg')
         // deleteImage.delete().then(() => {

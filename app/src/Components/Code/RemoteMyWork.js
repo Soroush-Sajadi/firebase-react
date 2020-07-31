@@ -3,7 +3,7 @@ import {formDataToBuffer} from 'form-data'
 import axios from 'axios'
 import '../Style/Remote.css'
 
-function Remote () {
+function RemoteMyWork () {
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
@@ -55,7 +55,10 @@ function Remote () {
     
    
 	const postData = async () => {
-       await postFileNewImage();
+        if (file !== null) {
+            await postFileNewImage();
+        }
+       
     }
 
     useEffect(() => {
@@ -80,7 +83,7 @@ function Remote () {
         </div>
     )
 }
-export default Remote;
+export default RemoteMyWork;
 
 // const [file, setFile] = useState(''); // storing the uploaded file    // storing the recived file from backend
 // const [data, getFile] = useState({ name: "", path: "" });

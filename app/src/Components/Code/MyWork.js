@@ -46,7 +46,7 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
             <div className="my-work-img">
               <h3>{item.title}</h3>
               <NavLink to={"/my work/" + item.title.toLowerCase()}>
-                <img value={item.title} onClick={getTitle} src={require(`../../images/cathegories-images/${item.title}.jpg`)} />
+                <img value={item.title} onClick={getTitle} src={item.image} />
               </NavLink>
             </div>
        

@@ -1,0 +1,17 @@
+.remote-wrapper{
+    margin-top: 100px;
+}
+.cathegories-wrapper-remote {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.cathegory-remote {
+    width: 250px;
+    height: 250px;
+    margin: 20px;
+}
+.cathegory-remote img {
+    width: 250px;
+    height: 200px;
+}

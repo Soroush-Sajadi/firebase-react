@@ -89,11 +89,24 @@ app.post('/message', (req, res) => {
     })
 })
 
-app.post('/cathegoryChange', (req, res) => {
-    // const image = req.body.image;
-    // const url = req.body.url
+app.post('/cathegoryChange',async (req, res) => {
+            console.log(req.files)
+            
+     
+
     if (req.files) {
-        const uploadImage = storage.ref(`cathegory/${req.files.file.name}`).put(req.files.file.data)
+        const reg =/(?<=\F).*\g/;
+        const name = req.files.file.name.match(reg)[0]
+        
+        const uploadImage = storage.ref(`cathegory/${name}`).put(req.files.file.data)
+        // const deleteImage = storage.ref().child('cathegory/Wedding.jpg')
+        // deleteImage.delete().then(() => {
+        //     console.log('ites deleted')
+        // })
+        // .catch((error) => {
+        //     console.log(error.message)
+        // })
+        
         uploadImage.on('state_changed',
         (snapshot) => {
 
@@ -102,13 +115,21 @@ app.post('/cathegoryChange', (req, res) => {
             console.log(error)
         },
         () => {
-            console.log('asd')
             storage.ref('cathegory').child(req.files.file.name).getDownloadURL().then(url => {
                 console.log(url)
             })
+            
         });
     }
 })
+// var desertRef = storageRef.child('images/desert.jpg');
+
+// // Delete the file
+// desertRef.delete().then(function() {
+//   // File deleted successfully
+// }).catch(function(error) {
+//   // Uh-oh, an error occurred!
+// });
 
 // cathegoriesName.map(item => app.get(`/cathegory/${item}`, (req, res) => {
 //     const pathToImage = `${dirCathegory}/${item}.jpg`

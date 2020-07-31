@@ -6,6 +6,7 @@ import MyWork from './Components/Code/MyWork';
 import AboutMe from './Components/Code/AboutMe';
 import Contacts from './Components/Code/Contacts';
 import Gallery from './Components/Code/Gallery';
+import Remote from './Components/Code/Remote'
 import './App.css';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/about me" render={() => <AboutMe uppDateLanguage={uppDateLanguage} menuState={menuState} language={language} upDateMenuState={upDateMenuState}/>}/>
                 <Route path="/contacts" render={() => <Contacts uppDateLanguage={uppDateLanguage} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
                 <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery uppDateLanguage={uppDateLanguage} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
+                <Route path="/remote" render={() => <Remote />} />
               </Switch>
       </BrowserRouter>
     </div>

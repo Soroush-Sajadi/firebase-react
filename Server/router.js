@@ -70,7 +70,6 @@ app.get('/', (req, res) => {
 
 app.get('/images/:id', (req, res) => {
     album = req.params.id;
-    console.log('asdas',album)
     const rootRef = firebase.database().ref().child(`${album}`);
     rootRef.on('value', snap => {
         res.json(snap.val());

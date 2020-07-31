@@ -14,8 +14,8 @@ function Gallery({ menuState,language, upDateMenuState, uppDateLanguage }) {
 				.then(res => res.json())
 				.then(res => setData(res))
 	}
-	
-	useEffect(async() => {
+
+	useEffect(() => {
 		getData();
 	},[])
 

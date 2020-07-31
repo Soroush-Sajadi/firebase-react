@@ -6,23 +6,13 @@ import '../Style/MyWork.css';
 
 function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLanguage }) {
   const [ data, setData ] = useState([]);
-  const [ loading, setLoading ] = useState('Loading');
   
   const getData = async () => {
-    // if ( JSON.parse(window.localStorage.getItem('data')) === null ) {
       await fetch (`http://localhost:3000/`)
         .then(res => res.json())
         .then(res => setData(res))
-    // }
-    // getDataFromLocalStorage('data')
   }
-  // const saveDataToLocalStorage = (name, data) => {
-  //   window.localStorage.setItem(name, JSON.stringify(data));
-  // }
 
-  // const getDataFromLocalStorage = (name) => {
-  //   setData(JSON.parse(window.localStorage.getItem(name)));
-  // }
   useEffect(()=> {
     getData()
   },[]);
@@ -30,7 +20,8 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
   const getTitle = (e) => {
     uppDateTitle(e.target.getAttribute('value'))
   }
-
+  
+  console.log(data)
   return (
     <>
         {!menuState ?

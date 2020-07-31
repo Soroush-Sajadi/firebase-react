@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {formDataToBuffer} from 'form-data'
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import '../Style/Remote.css'
 
-function RemoteMyWork () {
+function RemoteMyWork ({ uppDateTitle }) {
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
@@ -58,7 +58,10 @@ function RemoteMyWork () {
         if (file !== null) {
             await postFileNewImage();
         }
-       
+    }
+
+    const getTitle = (e) => {
+        uppDateTitle(e.target.getAttribute('value'));
     }
 
     useEffect(() => {
@@ -73,7 +76,9 @@ function RemoteMyWork () {
                 {data.map((item, i) => 
                     <div key={i}  className="cathegory-remote">
                         <h4>{item.title}</h4>
-                        <img src={item.image} />
+                        <NavLink to ={"/remote/" + item.title.toLowerCase()}>
+                            <img value={item.title} src={item.image} onClick={getTitle} />
+                        </NavLink>
                         <input type="file"  url={item.image} onChange={handelChange} />
                         <input type="submit" value="Change" onClick={postData} />
                     </div> 

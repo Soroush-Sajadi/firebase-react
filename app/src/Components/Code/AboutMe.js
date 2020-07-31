@@ -4,7 +4,6 @@ import OpenMenu from './OpenMenu'
 import '../Style/AboutMe.css';
 
 function AboutMe({ menuState, language,upDateMenuState, uppDateLanguage }) {
-  console.log(menuState)
   return (
      <div className="about-me-wrapper">
        {menuState ? 

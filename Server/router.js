@@ -99,9 +99,9 @@ app.post('/cathegoryChange',async (req, res) => {
         // deleteImage.delete().then(() => {
         //     console.log('ites deleted')
         // })
-        // .catch((error) => {
-        //     console.log(error.message)
-        // })
+        .catch((error) => {
+            console.log(error.message)
+        })
         
         uploadImage.on('state_changed',
         (snapshot) => {
@@ -118,61 +118,34 @@ app.post('/cathegoryChange',async (req, res) => {
         });
     }
 })
-// var desertRef = storageRef.child('images/desert.jpg');
+app.post('/galleryChange',async (req, res) => {
+    if (req.files) {
+        const cathegory = req.files.file.name.split(/[0-9]/)[0]
+        const uploadImage = storage.ref(`${cathegory}/${req.files.file.name}.jpg`).put(req.files.file.data)
+        // const deleteImage = storage.ref().child('cathegory/Wedding.jpg')
+        // deleteImage.delete().then(() => {
+        //     console.log('ites deleted')
+        // })
+        // .catch((error) => {
+        //     console.log(error.message)
+        // })
+        
+        uploadImage.on('state_changed',
+        (snapshot) => {
 
-// // Delete the file
-// desertRef.delete().then(function() {
-//   // File deleted successfully
-// }).catch(function(error) {
-//   // Uh-oh, an error occurred!
-// });
+        },
+        (error) => {
+            console.log(error)
+        },
+        () => {
+            storage.ref(`${cathegory}`).child(req.files.file.name).getDownloadURL().then(url => {
+                console.log(url)
+            })
+            
+        });
+    }
+})
 
-// cathegoriesName.map(item => app.get(`/cathegory/${item}`, (req, res) => {
-//     const pathToImage = `${dirCathegory}/${item}.jpg`
-//   res.sendFile(pathToImage);
-//   }));
-
-// wedding.map(item => app.get(`/wedding/${item}`, (req, res) => {
-//     const pathToImage = `${dirWedding}/${item}.jpg`
-//     res.sendFile(pathToImage);
-// }));
-
-// kids.map(item => app.get(`/kids/${item}`, (req, res) => {
-//     const pathToImage = `${dirKids}/${item}.jpg`
-//     res.sendFile(pathToImage);
-// }));
-
-// modeling.map(item => app.get(`/modeling/${item}`, (req, res) => {
-//     const pathToImage = `${dirModeling}/${item}.jpg`
-//     res.sendFile(pathToImage);
-// }));
-// couple.map(item => app.get(`/couple/${item}`, (req, res) => {
-//     const pathToImage = `${dirCouples}/${item}.jpg`
-//     res.sendFile(pathToImage);
-// }));
-// portrait.map(item => app.get(`/portrait/${item}`, (req, res) => {
-//     const pathToImage = `${dirPortrait}/${item}.jpg`
-//     res.sendFile(pathToImage);
-// }));
-
-// app.get('/images/:id', (req, res) => {
-//     const id = req.params.id;
-//     if( id === 'Wedding' ) {
-//         res.json(weddingData);
-//     }
-//     if ( id === 'Kids' ) {
-//         res.json(kidsData);
-//     }
-//     if ( id === 'Modeling' ) {
-//         res.json(modelingData);
-//     }
-//     if ( id === 'Couples' ) {
-//         res.json(couplesData);
-//     }
-//     if ( id === 'Portrait' ) {
-//         res.json(portraitData);
-//     }
-// })
 
 const port = 3000;
 app.listen(port, () => console.log(`listening on port ${port}!`))

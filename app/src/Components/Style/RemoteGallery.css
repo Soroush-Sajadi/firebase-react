@@ -1,3 +1,20 @@
 .remote-gallery-wrapper {
     margin-top: 100px;
 }
+.remote-gallery-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.gallery-remote {
+    width: 250px;
+    height: 250px;
+    margin: 20px;
+}
+.gallery-remote img {
+    width: 250px;
+    height: 200px;
+}
+.loading-remote {
+    background-color: blue;
+} 

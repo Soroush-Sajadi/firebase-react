@@ -13,7 +13,8 @@ import './App.css';
 function App() {
   const [ language, setLanguage ] = useState('English');
   const [ title, setTitle ] = useState('');
-  const [ menuState, setMenuState ] = useState(false)
+  const [ menuState, setMenuState ] = useState(false);
+  const [ remoteGallery, setRemoteGallery ] = useState ('');
 
   const uppDateLanguage = (childData) => {
     setLanguage(childData);
@@ -26,7 +27,7 @@ function App() {
   const upDateMenuState = (childData) => {
     setMenuState(childData)
   }
-  console.log(title)
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -38,7 +39,7 @@ function App() {
                 <Route path="/contacts" render={() => <Contacts uppDateLanguage={uppDateLanguage} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
                 <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery uppDateLanguage={uppDateLanguage} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
                 <Route exact path="/remote" render={() => <Remote uppDateTitle={uppDateTitle} />} />
-                <Route path={"/remote/" + title.toLowerCase()} render={() => <RemoteGallery />} />
+                <Route path={"/remote/" + title.toLowerCase()} render={() => <RemoteGallery  title={title}/>} />
               </Switch>
       </BrowserRouter>
     </div>

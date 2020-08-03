@@ -70,6 +70,14 @@ function RemoteMyWork ({ uppDateTitle }) {
     console.log(oldImage)
     return(
         <div className="remote-wrapper">
+            {progress !== 0 && progress !== '100%' ?
+                <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
+                <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
+                </div>
+            </div>
+            :
+            null
+            }
             {data.length === 0 ? loading
             :
             <div className="cathegories-wrapper-remote">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import '../Style/Remote.css'
@@ -8,19 +8,32 @@ function RemoteMyWork ({ uppDateTitle }) {
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
     const [ oldImage, setOldImage ] = useState('');
-    const [progress, setProgess] = useState(0); // progess bar
-    const [newData, getFile] = useState({ name: "", path: "" });
+    const [ progress, setProgess ] = useState(0);
+    const [ authenticate, setAuthenticate ] = useState(false);
+    const [ user, setUser ] = useReducer(
+        (state, newState) => ({...state, ...newState}),
+        {
+        firstPass: '',
+        secondPass: '',
+        }
+      );
+
+    const handleChangePass = evt => {
+        const name = evt.target.name;
+        const newValue = evt.target.value;
+        setUser({[name]: newValue});
+    }
 
     const getData = async() => {
         await fetch(`http://localhost:3000/`)
             .then(res => res.json())
             .then(res => setData(res))
     }
+
     const handelChange = e => {
         setProgess(0)
         const file = (e.target.files[0]); 
         setFile(file);
-
         setOldImage(e.target.getAttribute('url'));
     }
 
@@ -28,8 +41,6 @@ function RemoteMyWork ({ uppDateTitle }) {
         const url = 'http://localhost:3000/cathegoryChange';
         const formData = new FormData();
         formData.append( 'file', file,oldImage)
-        
-     
         await axios.post(url, formData, {
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
@@ -67,12 +78,15 @@ function RemoteMyWork ({ uppDateTitle }) {
     useEffect(() => {
         getData();
     },[])
-    console.log(oldImage)
+    console.log(user)
     return(
+        <>
+        {authenticate ? 
         <div className="remote-wrapper">
             {progress !== 0 && progress !== '100%' ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
                 <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
+                    <p style={{color:'white'}}>{progress}</p>
                 </div>
             </div>
             :
@@ -94,6 +108,15 @@ function RemoteMyWork ({ uppDateTitle }) {
             </div>
             }
         </div>
+        :
+        
+        <div className="login-wraper">
+            <input className="login" type="text" name="firstPass" value={user.firstPass} placeholder="First password" onChange={ handleChangePass } />
+            <input className="login" type="text" name="secondPass" value={user.secondPass} placeholder="Second password" onChange={ handleChangePass } />
+            <input className="submit" type="submit" />
+        </div>
+        }
+        </>
     )
 }
 export default RemoteMyWork;

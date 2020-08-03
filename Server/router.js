@@ -95,14 +95,6 @@ app.post('/cathegoryChange',async (req, res) => {
         const reg =/(?<=\F).*\g/;
         const name = req.files.file.name.match(reg)[0]
         const uploadImage = storage.ref(`cathegory/${name}`).put(req.files.file.data)
-        // const deleteImage = storage.ref().child('cathegory/Wedding.jpg')
-        // deleteImage.delete().then(() => {
-        //     console.log('ites deleted')
-        // })
-        .catch((error) => {
-            console.log(error.message)
-        })
-        
         uploadImage.on('state_changed',
         (snapshot) => {
 
@@ -144,6 +136,14 @@ app.post('/galleryChange',async (req, res) => {
             
         });
     }
+});
+
+app.get('/password', (req, res) => {
+    const rootRef = firebase.database().ref().child('password');
+    rootRef.on('value', snap => {
+        res.json(snap.val());
+    })
+    
 })
 
 

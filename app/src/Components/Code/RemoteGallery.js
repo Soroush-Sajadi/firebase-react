@@ -8,7 +8,8 @@ function RemoteGallery ({title}) {
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
     const [ oldImage, setOldImage ] = useState('');
-    const [progress, setProgess] = useState(0); // progess bar
+    const [progress, setProgess] = useState(0);
+    const [ athenticate, setAthenticate ] = useState(false);
 
     const getData = async () => {
         await fetch (`http://localhost:3000/images/${title}`)
@@ -65,7 +66,8 @@ function RemoteGallery ({title}) {
         <div className="remote-gallery-wrapper">
             {progress !== 0 && progress !== '100%' ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
-                <div className="loading-remote" style={{ width: progress}}>
+                <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
+                    <p style={{color:'white' , textAlign:'center'}}>{progress}</p>
                 </div>
             </div>
             :

@@ -17,4 +17,43 @@
 }
 .loading-remote {
     background-color: blue;
-} 
+}
+
+.login-wraper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    justify-content: center;
+  }
+  .login-wraper input:focus {
+    outline: none;
+    border-bottom: 2px solid #379fef;
+    
+    transition: 0.2s;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .login {
+    border-top: none;
+    border-right: none ;
+    border-left: none;
+    height: 35px;
+    width: 50%;
+    margin-top: 25px;
+  }
+  ::-webkit-input-placeholder {
+    text-align: center;
+ }
+ ::-webkit-input-placeholder:focus {
+  text-align: right;
+}
+.submit {
+    width: 25%;
+    height: 45px;
+    border: none;
+    border-radius: 26px;
+    background-color: blueviolet;
+    margin-top: 30px;
+    text-align: center;
+  }

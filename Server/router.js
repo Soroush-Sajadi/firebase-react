@@ -138,12 +138,18 @@ app.post('/galleryChange',async (req, res) => {
     }
 });
 
-app.get('/password', (req, res) => {
+app.get('/password/:firstPass/:secondPass', (req, res) => {
+    const firstPass = req.params.firstPass;
+    const secondPass = req.params.secondPass;
     const rootRef = firebase.database().ref().child('password');
     rootRef.on('value', snap => {
-        res.json(snap.val());
+        console.log(typeof snap.val().firstPass, snap.val().secondPass, firstPass, secondPass)
+        if ( Number(firstPass) === snap.val().firstPass && Number(secondPass) === snap.val().secondPass ) {
+            res.json(true);
+        } else {
+            res.json(false);
+        }
     })
-    
 })
 
 

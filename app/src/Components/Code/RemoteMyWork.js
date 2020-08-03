@@ -24,6 +24,12 @@ function RemoteMyWork ({ uppDateTitle }) {
         setUser({[name]: newValue});
     }
 
+    const getLogIn = async () => {
+        await fetch(`http://localhost:3000/password/${user.firstPass}/${user.secondPass}`)
+            .then(res => res.json())
+            .then(res => console.log(res))
+    }
+
     const getData = async() => {
         await fetch(`http://localhost:3000/`)
             .then(res => res.json())
@@ -113,7 +119,7 @@ function RemoteMyWork ({ uppDateTitle }) {
         <div className="login-wraper">
             <input className="login" type="text" name="firstPass" value={user.firstPass} placeholder="First password" onChange={ handleChangePass } />
             <input className="login" type="text" name="secondPass" value={user.secondPass} placeholder="Second password" onChange={ handleChangePass } />
-            <input className="submit" type="submit" />
+            <input className="submit" type="submit" onClick={getLogIn}/>
         </div>
         }
         </>

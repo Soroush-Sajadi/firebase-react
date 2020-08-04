@@ -7,7 +7,8 @@ import AboutMe from './Components/Code/AboutMe';
 import Contacts from './Components/Code/Contacts';
 import Gallery from './Components/Code/Gallery';
 import Remote from './Components/Code/RemoteMyWork';
-import RemoteGallery from './Components/Code/RemoteGallery'
+import RemoteGallery from './Components/Code/RemoteGallery';
+import NewRemote from './Components/Code/RemoteWrapper';
 import './App.css';
 
 function App() {
@@ -38,8 +39,8 @@ function App() {
                 <Route path="/about me" render={() => <AboutMe uppDateLanguage={uppDateLanguage} menuState={menuState} language={language} upDateMenuState={upDateMenuState}/>}/>
                 <Route path="/contacts" render={() => <Contacts uppDateLanguage={uppDateLanguage} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
                 <Route path={"/my work/" + title.toLowerCase() } render={() => <Gallery uppDateLanguage={uppDateLanguage} language={language} upDateMenuState={upDateMenuState} menuState={menuState} />} />
-                <Route exact path="/remote" render={() => <Remote uppDateTitle={uppDateTitle} />} />
-                <Route path={"/remote/" + title.toLowerCase()} render={() => <RemoteGallery  title={title}/>} />
+                <Route exact path="/remote" render={() => <NewRemote />} />
+                {/* <Route path={"/remote/" + title.toLowerCase()} render={() => <RemoteGallery  title={title}/>} /> */}
               </Switch>
       </BrowserRouter>
     </div>

@@ -3,7 +3,7 @@ import { Spinner } from 'react-spinners-css';
 import axios from 'axios';
 import '../Style/RemoteGallery.css'
 
-function RemoteGallery ({title}) {
+function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
@@ -12,7 +12,7 @@ function RemoteGallery ({title}) {
     const [ athenticate, setAthenticate ] = useState(false);
 
     const getData = async () => {
-        await fetch (`http://localhost:3000/images/${title}`)
+        await fetch (`http://localhost:3000/images/${gallery}`)
             .then(res => res.json())
             .then(res => setData(res))
     }
@@ -52,6 +52,11 @@ function RemoteGallery ({title}) {
 		// })
     }
 
+    const goBack = () => {
+        updateRender('MyWork');
+        updateAuthenticate(true);
+    } 
+
     const postData = () => {
         if ( file !== null ) {
             postFileNewImage()
@@ -72,6 +77,9 @@ function RemoteGallery ({title}) {
             :
             null
             }
+            <div className="wrapper-render">
+            <input type="submit" value="Back" onClick={goBack} />
+            </div>
             {data.map((item, i) => 
                 <div key={i}  className="gallery-remote">
                     <h4>{item.title}</h4>
@@ -81,6 +89,7 @@ function RemoteGallery ({title}) {
                     
                 </div> 
                 ) }
+            
         </div>
     )
 }

@@ -28,7 +28,6 @@
   .login-wraper input:focus {
     outline: none;
     border-bottom: 2px solid #379fef;
-    
     transition: 0.2s;
     font-size: 1rem;
     font-weight: 700;
@@ -45,12 +44,13 @@
   }
   ::-webkit-input-placeholder {
     text-align: center;
+    color: aliceblue;
  }
  ::-webkit-input-placeholder:focus {
   text-align: right;
 }
 .submit {
-    width: 25%;
+    width: 13%;
     height: 45px;
     border: none;
     border-radius: 26px;

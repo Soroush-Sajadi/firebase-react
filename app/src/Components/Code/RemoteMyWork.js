@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 import axios from 'axios'
 import '../Style/Remote.css'
 
-function RemoteMyWork ({ uppDateTitle }) {
+function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
@@ -71,8 +71,6 @@ function RemoteMyWork ({ uppDateTitle }) {
 		// })
     }
 
-    
-   
 	const postData = async () => {
         if (file !== null) {
             await postFileNewImage();
@@ -80,18 +78,20 @@ function RemoteMyWork ({ uppDateTitle }) {
     }
 
     const getTitle = (e) => {
-        uppDateTitle(e.target.getAttribute('value'));
+        updateGallery(e.target.getAttribute('value'));
+        updateRender('Gallery');
     }
 
     useEffect(() => {
-        // if( authenticate ) {
-        //     getData();
-        // }
+        if( remainAuthenticated ) {
+            getData();
+        }
        
     },[])
+
     return(
         <>
-        {authenticate ? 
+        {authenticate || remainAuthenticated ? 
         <div className="remote-wrapper">
             {progress !== 0 && progress !== '100%' ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
@@ -108,9 +108,7 @@ function RemoteMyWork ({ uppDateTitle }) {
                 {data.map((item, i) => 
                     <div key={i}  className="cathegory-remote">
                         <h4>{item.title}</h4>
-                        <NavLink to ={"/remote/" + item.title.toLowerCase()}>
                             <img value={item.title} src={item.image} onClick={getTitle} />
-                        </NavLink>
                         <input type="file"  url={item.image} onChange={handelChange} />
                         <input type="submit" value="Change" onClick={postData} />
                     </div> 

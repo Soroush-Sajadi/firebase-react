@@ -61,7 +61,6 @@ function RemoteGallery ({title}) {
         getData()
     },[])
 
-    console.log(progress);
     return (
         <div className="remote-gallery-wrapper">
             {progress !== 0 && progress !== '100%' ?

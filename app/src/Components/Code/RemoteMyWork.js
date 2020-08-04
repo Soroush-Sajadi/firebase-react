@@ -10,6 +10,7 @@ function RemoteMyWork ({ uppDateTitle }) {
     const [ oldImage, setOldImage ] = useState('');
     const [ progress, setProgess ] = useState(0);
     const [ authenticate, setAuthenticate ] = useState(false);
+    const [ wrongPassMessage, setWrongPassMessage ] = useState('')
     const [ user, setUser ] = useReducer(
         (state, newState) => ({...state, ...newState}),
         {
@@ -27,13 +28,14 @@ function RemoteMyWork ({ uppDateTitle }) {
     const getLogIn = async () => {
         await fetch(`http://localhost:3000/password/${user.firstPass}/${user.secondPass}`)
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => setAuthenticate(res) || res ? getData(): setWrongPassMessage('Password is wrong') )
     }
 
     const getData = async() => {
-        await fetch(`http://localhost:3000/`)
-            .then(res => res.json())
-            .then(res => setData(res))
+        setWrongPassMessage('');
+            await fetch(`http://localhost:3000/`)
+                .then(res => res.json())
+                .then(res => setData(res))
     }
 
     const handelChange = e => {
@@ -82,9 +84,11 @@ function RemoteMyWork ({ uppDateTitle }) {
     }
 
     useEffect(() => {
-        getData();
+        // if( authenticate ) {
+        //     getData();
+        // }
+       
     },[])
-    console.log(user)
     return(
         <>
         {authenticate ? 
@@ -120,6 +124,7 @@ function RemoteMyWork ({ uppDateTitle }) {
             <input className="login" type="text" name="firstPass" value={user.firstPass} placeholder="First password" onChange={ handleChangePass } />
             <input className="login" type="text" name="secondPass" value={user.secondPass} placeholder="Second password" onChange={ handleChangePass } />
             <input className="submit" type="submit" onClick={getLogIn}/>
+            {wrongPassMessage !== ''? <h3>{wrongPassMessage}</h3>: null}
         </div>
         }
         </>

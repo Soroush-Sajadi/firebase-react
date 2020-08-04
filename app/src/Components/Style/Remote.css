@@ -22,8 +22,8 @@
 .login-wraper {
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
-    justify-content: center;
+    margin-top: 240px;
+    align-items: center;
   }
   .login-wraper input:focus {
     outline: none;
@@ -41,6 +41,7 @@
     height: 35px;
     width: 50%;
     margin-top: 25px;
+    background-color: #222;
   }
   ::-webkit-input-placeholder {
     text-align: center;

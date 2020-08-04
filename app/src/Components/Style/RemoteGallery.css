@@ -1,11 +1,16 @@
-.remote-gallery-wrapper {
-    margin-top: 100px;
-}
+
 .remote-gallery-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+}
+.wrapper-remote {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 100px;
 }
 .gallery-remote {
     width: 250px;
@@ -19,7 +24,9 @@
 .loading-remote {
     background-color: blue;
 } 
-/* .wrapper-render {
+.remote-header {
     display: flex;
-    flex-direction: column;
-} */
+}
+.remote-header input {
+    height: 20px;
+}

@@ -28,8 +28,8 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
       <div className="my-work-wrapper">
       {data.length === 0 ? <div className="loading"><Spinner color="white" size={200} /></div> 
       :
-      data.map((item,) => 
-        <div className="my-work">
+      data.map((item, i) => 
+        <div key={i} className="my-work">
           <div className="my-work-title">
             <h1>{item.title}</h1>
             <h4>{language === 'English' ? item.English: item.Svenska}</h4>

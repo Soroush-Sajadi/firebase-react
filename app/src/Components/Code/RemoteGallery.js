@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Spinner } from 'react-spinners-css';
+import AddImageRemote from './AddImageRemote';
 import axios from 'axios';
 import '../Style/RemoteGallery.css'
 
@@ -67,7 +67,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     },[])
 
     return (
-        <div className="remote-gallery-wrapper">
+        <div className="wrapper-remote">
             {progress !== 0 && progress !== '100%' ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
                 <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
@@ -77,9 +77,11 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             :
             null
             }
-            <div className="wrapper-render">
-            <input type="submit" value="Back" onClick={goBack} />
+            <div className="remote-header">
+                <input type="submit" value="Back" onClick={goBack} />
+                <AddImageRemote />
             </div>
+            <div className="remote-gallery-wrapper">
             {data.map((item, i) => 
                 <div key={i}  className="gallery-remote">
                     <h4>{item.title}</h4>
@@ -89,6 +91,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                     
                 </div> 
                 ) }
+            </div>
             
         </div>
     )

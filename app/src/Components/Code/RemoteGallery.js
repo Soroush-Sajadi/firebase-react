@@ -67,7 +67,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         getData()
     },[])
 
-    console.log(lastimageName);
+    console.log(data);
 
     return (
         <div className="wrapper-remote">

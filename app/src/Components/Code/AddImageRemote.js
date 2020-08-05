@@ -30,7 +30,7 @@ function AddImageRemote ({ lastimageName }) {
             postData();
         }
     }
-
+console.log(lastimageName)
     return(
         <div>
             <input type="file" onChange={handleChange} />

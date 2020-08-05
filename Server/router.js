@@ -138,6 +138,7 @@ app.post('/add/image', (req,res) => {
     if (req.files) {
         const cathegory = (imageName(req.files.file.name))[0];
         const name = (imageName(req.files.file.name))[1];
+        const number = (imageName(req.files.file.name)[2])
         const image = req.files.file.data
         console.log(cathegory, name, image)
         const uploadImage = storage.ref(`${cathegory}/${name}.jpg`).put(image)
@@ -150,7 +151,18 @@ app.post('/add/image', (req,res) => {
         },
         async () => {
             uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                console.log(downloadURL)})
+                const usersRef = firebase.database().ref().child(`${cathegory}/${number - 1}`);
+                    
+                        
+                            usersRef.update({
+                                    name:`${name}`,
+                                    picture:`${downloadURL}`
+                
+                                
+                            })
+                        
+                    
+            })
             .catch(err => console.log (err.message));
             
         });

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddImageRemote from './AddImageRemote';
-import { imageName } from '../../Helper/imageName'
+import DeleteImageRemote from './DeleteImageRemote';
 import axios from 'axios';
 import '../Style/RemoteGallery.css'
 
@@ -87,8 +87,9 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             <div className="remote-gallery-wrapper">
             {data.map((item, i) => 
                 <div key={i}  className="gallery-remote">
-                    <h4>{item.title}</h4>
-                        <img value={item.title} src={item.picture} />
+                    <img className="gallery-remote-img" src={item.picture} />
+                    <DeleteImageRemote />
+                    
                     <input type="file" name={item.name} onChange={handelChange} />
                     <input type="submit" value="Change" onClick={postData}/>
                     

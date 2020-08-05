@@ -17,7 +17,7 @@
     height: 250px;
     margin: 20px;
 }
-.gallery-remote img {
+.gallery-remote-img {
     width: 250px;
     height: 200px;
 }
@@ -29,4 +29,7 @@
 }
 .remote-header input {
     height: 20px;
+}
+.update-remote {
+    display: flex;
 }

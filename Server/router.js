@@ -161,6 +161,10 @@ app.post('/add/image', (req,res) => {
     }
 })
 
+app.get('/delete/image/:name', (req, res) => {
+    console.log(req.params.name)
+})
+
 app.get('/password/:firstPass/:secondPass', (req, res) => {
     const firstPass = req.params.firstPass;
     const secondPass = req.params.secondPass;

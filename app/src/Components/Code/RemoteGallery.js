@@ -88,8 +88,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             {data.map((item, i) => 
                 <div key={i}  className="gallery-remote">
                     <img className="gallery-remote-img" src={item.picture} />
-                    <DeleteImageRemote />
-                    
+                    <DeleteImageRemote imageName={item.name}/>
                     <input type="file" name={item.name} onChange={handelChange} />
                     <input type="submit" value="Change" onClick={postData}/>
                     

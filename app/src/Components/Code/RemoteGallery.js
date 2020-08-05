@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddImageRemote from './AddImageRemote';
+import { imageName } from '../../Helper/imageName'
 import axios from 'axios';
 import '../Style/RemoteGallery.css'
 
@@ -9,12 +10,12 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const [ file, setFile ] = useState(null);
     const [ oldImage, setOldImage ] = useState('');
     const [progress, setProgess] = useState(0);
-    const [ athenticate, setAthenticate ] = useState(false);
+    const [ lastimageName, setLastImageName ] = useState('');
 
     const getData = async () => {
         await fetch (`http://localhost:3000/images/${gallery}`)
             .then(res => res.json())
-            .then(res => setData(res))
+            .then(res => setData(res) || setLastImageName((res[res.length-1].name)))
     }
 
     const handelChange = e => {
@@ -66,6 +67,8 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         getData()
     },[])
 
+    console.log(lastimageName);
+
     return (
         <div className="wrapper-remote">
             {progress !== 0 && progress !== '100%' ?
@@ -79,7 +82,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             }
             <div className="remote-header">
                 <input type="submit" value="Back" onClick={goBack} />
-                <AddImageRemote />
+                <AddImageRemote lastimageName={lastimageName}/>
             </div>
             <div className="remote-gallery-wrapper">
             {data.map((item, i) => 

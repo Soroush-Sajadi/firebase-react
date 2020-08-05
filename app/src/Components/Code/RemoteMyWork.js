@@ -88,7 +88,6 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         }
        
     },[])
-
     return(
         <>
         {authenticate || remainAuthenticated ? 

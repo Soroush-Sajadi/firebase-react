@@ -6,7 +6,7 @@ const path = require('path');
 const firebase = require('firebase');
 require('@firebase/storage')
 require('dotenv').config();
-const { sendMail } = require('./helperFunctions/sendMail')
+
 //const fetch = require('node-fetch');
 global.XMLHttpRequest = require("xhr2");
 
@@ -24,12 +24,8 @@ const storage = firebase.storage();
 
 //______________________________________________________________________________________________________________________________________//
 // Helper functions
-// const { cathegoriesName } = require('./helperFunctions/cathegoriesName');
-// const { wedding } = require('./helperFunctions/wedding');
-// const { kids } = require('./helperFunctions/kids');
-// const { modeling } = require('./helperFunctions/modeling');
-// const { couple } = require('./helperFunctions/couple');
-// const { portrait } = require('./helperFunctions/portrait');
+const { sendMail } = require('./helperFunctions/sendMail')
+const { imageName } = require('./helperFunctions/setName')
 //___________________________________________________________________________________________________________________________
 
 //const { uuidv4 } = require('./helper-function/idGenerator')
@@ -138,12 +134,34 @@ app.post('/galleryChange',async (req, res) => {
     }
 });
 
+app.post('/add/image', (req,res) => {
+    if (req.files) {
+        const cathegory = (imageName(req.files.file.name))[0];
+        const name = (imageName(req.files.file.name))[1];
+        const image = req.files.file.data
+        console.log(cathegory, name, image)
+        const uploadImage = storage.ref(`${cathegory}/${name}.jpg`).put(image)
+        uploadImage.on('state_changed',
+        (snapshot) => {
+
+        },
+        (error) => {
+            console.log(error)
+        },
+        async () => {
+            uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                console.log(downloadURL)})
+            .catch(err => console.log (err.message));
+            
+        });
+    }
+})
+
 app.get('/password/:firstPass/:secondPass', (req, res) => {
     const firstPass = req.params.firstPass;
     const secondPass = req.params.secondPass;
     const rootRef = firebase.database().ref().child('password');
     rootRef.on('value', snap => {
-        console.log(typeof snap.val().firstPass, snap.val().secondPass, firstPass, secondPass)
         if ( Number(firstPass) === snap.val().firstPass && Number(secondPass) === snap.val().secondPass ) {
             res.json(true);
         } else {
@@ -151,6 +169,8 @@ app.get('/password/:firstPass/:secondPass', (req, res) => {
         }
     })
 })
+
+
 
 
 const port = 3000;

@@ -138,9 +138,9 @@ app.post('/add/image', (req,res) => {
     if (req.files) {
         const cathegory = (imageName(req.files.file.name))[0];
         const name = (imageName(req.files.file.name))[1];
-        const number = (imageName(req.files.file.name)[2])
-        const image = req.files.file.data
-        const uploadImage = storage.ref(`${cathegory}/${name}.jpg`).put(image)
+        const number = (imageName(req.files.file.name)[2]);
+        const image = req.files.file.data;
+        const uploadImage = storage.ref(`${cathegory}/${name}.jpg`).put(image);
         uploadImage.on('state_changed',
         (snapshot) => {
 
@@ -149,21 +149,35 @@ app.post('/add/image', (req,res) => {
             console.log(error)
         },
         async () => {
-            uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            await uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
                 const usersRef = firebase.database().ref().child(`${cathegory}/${number - 1}`);
-                            usersRef.update({
-                                    name:`${name}`,
-                                    picture:`${downloadURL}`
-                            })
-            })
-            .catch(err => console.log (err.message));
+                    usersRef.set({
+                        name:`${name}`,
+                        picture:`${downloadURL}`
+                    })
+            }).then(res.json('its done'))
+            .catch(err => res.json(err.message));
         });
     }
 })
 
 app.get('/delete/image/:name', (req, res) => {
-    console.log(req.params.name)
-})
+    const cathegory = (imageName(req.params.name))[0];
+    const name = (req.params.name);
+    const number = (imageName(req.params.name)[3]) - 1
+
+    console.log(cathegory, name, number)
+
+    const deleteImage = storage.ref(`${cathegory}/${name}.jpg`).delete();
+    deleteImage.then(() => {
+        
+    })
+    const deleteData = firebase.database().ref().child(`${cathegory}/${number}`)
+            deleteData.delete().then(() => {
+            res.json('Its done')
+            })
+        })
+    
 
 app.get('/password/:firstPass/:secondPass', (req, res) => {
     const firstPass = req.params.firstPass;

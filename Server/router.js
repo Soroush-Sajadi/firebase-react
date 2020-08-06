@@ -52,13 +52,20 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(fileUpload());
+// app.use((req, res, next) => {
+//     res.append('Access-Control-Allow-Origin', ['*']);
+//     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.append('Access-Control-Allow-Headers', 'Content-Type');
+//     next();
+// });
+
 
 //___________________________________________________________________________________________________________________________________________
 // end points
 
 app.get('/', (req, res) => {
     const rootRef = firebase.database().ref().child('cathegory');
-    rootRef.on('value', snap => {
+    rootRef.once('value', snap => {
         res.json(snap.val());
     })
     
@@ -67,7 +74,7 @@ app.get('/', (req, res) => {
 app.get('/images/:id', (req, res) => {
     album = req.params.id;
     const rootRef = firebase.database().ref().child(`${album}`);
-    rootRef.on('value', snap => {
+    rootRef.once('value', snap => {
         res.json(snap.val());
     })
 })
@@ -146,17 +153,21 @@ app.post('/add/image', (req,res) => {
 
         },
         (error) => {
-            console.log(error)
+            if (error) {
+                res.json(error.message)
+            }
         },
-        async () => {
-            await uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                const usersRef = firebase.database().ref().child(`${cathegory}/${number - 1}`);
+        () => {
+            uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                if ( downloadURL ) {
+                    res.setHeader('Content-Type', 'application/json');
+                    const usersRef = firebase.database().ref().child(`${cathegory}/${number - 1}`);
                     usersRef.set({
                         name:`${name}`,
                         picture:`${downloadURL}`
                     })
-            }).then(res.json('its done'))
-            .catch(err => res.json(err.message));
+                }
+            })
         });
     }
 })
@@ -170,13 +181,17 @@ app.get('/delete/image/:name', (req, res) => {
 
     const deleteImage = storage.ref(`${cathegory}/${name}.jpg`).delete();
     deleteImage.then(() => {
-        
-    })
-    const deleteData = firebase.database().ref().child(`${cathegory}/${number}`)
-            deleteData.delete().then(() => {
-            res.json('Its done')
+        const deleteData = firebase.database().ref().child(`${cathegory}/${number}`)
+            deleteData.remove().then(() => {
+                res.json('Its done')
+            }).catch(error => {
+                res.json(error.message)
             })
+        }).catch(error => {
+            res.json(error.message)
         })
+    })
+    
     
 
 app.get('/password/:firstPass/:secondPass', (req, res) => {

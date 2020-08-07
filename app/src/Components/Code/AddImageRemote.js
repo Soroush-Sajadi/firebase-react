@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-function AddImageRemote ({ lastimageName }) {
+function AddImageRemote ({ lastimageName, updadateReRender }) {
     const [ file, setFile ] = useState(null);
     const [ progress, setProgess ] = useState(0);
-    const [ message, setMessage ] = useState('');
+    const [ message, setMessage ] = useState(false);
 
     const handleChange = e => {
         setProgess(0)
@@ -13,28 +13,28 @@ function AddImageRemote ({ lastimageName }) {
         // setOldImage(e.target.getAttribute('url'));
     }
 
-    const postData = () => {
+    const postData = async () => {
         const url = 'http://localhost:3000/add/image';
         const formData = new FormData();
         formData.append( 'file', file, lastimageName)
         axios.post(url, formData, {
-            headers :{
-                'Content-Type': 'multipart/form-data'
-            },
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
                 ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
                 setProgess(progress);
             },
         })
+        // .then(res => res.json())
+        // .then(res => setMessage(res))
     }
 
     const saveData = () => {
         if( file !== null ) {
             postData();
         }
+        // updadateReRender(true);
     }
-console.log(lastimageName)
+
     return(
         <div>
             {progress !== 0 && progress !== '100%' ?

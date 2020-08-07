@@ -1,25 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom'
 import DeleteIcon from '../../images/Logo/delete.png';
-import axios from 'axios';
+import Tick from '../../images/Logo/tick.svg'
 import '../Style/DeleteImageRemote.css'
 
-function DeleteImageRemote ({ imageName }) {
+function DeleteImageRemote ({ imageName, updadateReRender }) {
     const [ message, setMessage ] = useState('')
 
     const getImage = async () => {
         const url = `http://localhost:3000/delete/image/${imageName}`
         await fetch(url)
-            // .then(res => res.json())
-            // .then(res => setMessage(res))
+            .then(res => res.json())
+            .then(res => setMessage(res))
     }
 
     const deleteImage = () => {
-        getImage();
+        if (window.confirm("Are you sure you want to delete this picture?")) {
+            getImage();
+            updadateReRender(true);
+        }
     }
-
     return(
         <div className="deleteIcon">
-            <img  src={DeleteIcon} alt="delete" onClick={deleteImage}/>
+            <img src={DeleteIcon} alt="delete" onClick={deleteImage}/>
+            {message === 'Its done' ? <img src={Tick} alt="tick" /> : null}
         </div>
     )
 }

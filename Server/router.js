@@ -117,14 +117,6 @@ app.post('/galleryChange',async (req, res) => {
     if (req.files) {
         const cathegory = req.files.file.name.split(/[0-9]/)[0]
         const uploadImage = storage.ref(`${cathegory}/${req.files.file.name}.jpg`).put(req.files.file.data)
-        // const deleteImage = storage.ref().child('cathegory/Wedding.jpg')
-        // deleteImage.delete().then(() => {
-        //     console.log('ites deleted')
-        // })
-        // .catch((error) => {
-        //     console.log(error.message)
-        // })
-        
         uploadImage.on('state_changed',
         (snapshot) => {
 
@@ -166,8 +158,11 @@ app.post('/add/image', (req,res) => {
                         name:`${name}`,
                         picture:`${downloadURL}`
                     })
+                    
                 }
             })
+            .then(() => res.json(true))
+            .catch((error) => res.json(error.message))
         });
     }
 })

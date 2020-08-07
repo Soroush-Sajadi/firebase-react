@@ -27,8 +27,8 @@
 .remote-header {
     display: flex;
 }
-.remote-header input {
-    height: 20px;
+.remote-header img {
+    width: 20px;
 }
 .update-remote {
     display: flex;

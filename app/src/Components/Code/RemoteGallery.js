@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AddImageRemote from './AddImageRemote';
 import DeleteImageRemote from './DeleteImageRemote';
+import Back from '../../images/Logo/back.png'
 import axios from 'axios';
 import '../Style/RemoteGallery.css'
 
@@ -11,26 +12,27 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const [ oldImage, setOldImage ] = useState('');
     const [progress, setProgess] = useState(0);
     const [ lastimageName, setLastImageName ] = useState('');
+    const [ refetch, setRefetch ] = useState(false);
+    const [render, setRerender ] = useState(true)
+
 
     const getData = async () => {
         await fetch (`http://localhost:3000/images/${gallery}`)
             .then(res => res.json())
             .then(res => setData(res) || setLastImageName((res[res.length-1].name)))
-    }
+    };
 
     const handelChange = e => {
         setProgess(0)
         const file = (e.target.files[0]); 
         setFile(file);
         setOldImage(e.target.getAttribute('name'));
-    }
+    };
 
     const postFileNewImage = async () => {
         const url = 'http://localhost:3000/galleryChange';
         const formData = new FormData();
         formData.append( 'file', file, oldImage)
-        
-     
         await axios.post(url, formData, {
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
@@ -51,23 +53,33 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         //   	"oldImage": oldImage,
         //   	})
 		// })
-    }
+    };
 
     const goBack = () => {
         updateRender('MyWork');
         updateAuthenticate(true);
-    } 
+    };
 
     const postData = () => {
         if ( file !== null ) {
             postFileNewImage()
         }
-    }
-    useEffect(() => {
-        getData()
-    },[])
+    };
 
-    console.log(data);
+    const updadateReRender = (childData) => {
+        setRefetch(childData);
+    }
+
+    useEffect( () => {
+        if (refetch) {
+            getData()
+        }
+    })
+
+    useEffect(() => {
+        setRefetch(false)
+        getData();
+    },[])
 
     return (
         <div className="wrapper-remote">
@@ -81,21 +93,23 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             null
             }
             <div className="remote-header">
-                <input type="submit" value="Back" onClick={goBack} />
-                <AddImageRemote lastimageName={lastimageName}/>
+                <img src={Back} onClick={goBack} />
+                <AddImageRemote lastimageName={lastimageName} updadateReRender={updadateReRender}/>
             </div>
             <div className="remote-gallery-wrapper">
             {data.map((item, i) => 
+            <>
+            {item !== null ? 
                 <div key={i}  className="gallery-remote">
                     <img className="gallery-remote-img" src={item.picture} />
-                    <DeleteImageRemote imageName={item.name}/>
+                    <DeleteImageRemote imageName={item.name} updadateReRender={updadateReRender}/>
                     <input type="file" name={item.name} onChange={handelChange} />
                     <input type="submit" value="Change" onClick={postData}/>
-                    
-                </div> 
+                </div> : null
+            }
+            </>
                 ) }
             </div>
-            
         </div>
     )
 }

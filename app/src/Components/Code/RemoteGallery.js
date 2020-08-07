@@ -13,6 +13,9 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const [progress, setProgess] = useState(0);
     const [ lastimageName, setLastImageName ] = useState('');
     const [ refetch, setRefetch ] = useState(false);
+    const [ imageIndex, setImageIndex ] = useState (0);
+    const [ loadingBar,  setLoadingBar ] = useState(true);
+
     const [render, setRerender ] = useState(true)
 
 
@@ -30,17 +33,20 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         setOldImage(e.target.getAttribute('name'));
     };
 
-    const postFileNewImage = async () => {
+    const postFileNewImage = () => {
+        setLoadingBar(true);
         const url = 'http://localhost:3000/galleryChange';
         const formData = new FormData();
-        formData.append( 'file', file, oldImage)
-        await axios.post(url, formData, {
+        formData.append( 'file', file, [ oldImage, imageIndex ])
+        axios.post(url, formData, {
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
-                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+                ProgressEvent.loaded / ProgressEvent.total * 99) + '%';
                 setProgess(progress);
             },
-        })
+        }).then(res => console.log(res))
+        .then(res => res.data === 'Its done' ? setRefetch(true)|| setLoadingBar(false): null)
+        
         // .then(res => {
         //     console.log(res);
         //     getFile({ name: res.newData.name,
@@ -61,10 +67,11 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         updateAuthenticate(true);
     };
 
-    const postData = () => {
+    const postData = (e) => {
         if ( file !== null ) {
             postFileNewImage()
         }
+        setImageIndex(e.target.getAttribute('index'))
     };
 
     const updadateReRender = (childData) => {
@@ -81,11 +88,11 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     useEffect(() => {
         getData();
     },[])
-    
+
     console.log(data)
     return (
         <div className="wrapper-remote">
-            {progress !== 0 && progress !== '100%' ?
+            {progress !== 0 && loadingBar === true ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
                 <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
                     <p style={{color:'white' , textAlign:'center'}}>{progress}</p>
@@ -106,7 +113,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                     <img className="gallery-remote-img" src={item.picture} />
                     <DeleteImageRemote imageName={item.name} updadateReRender={updadateReRender}/>
                     <input type="file" name={item.name} onChange={handelChange} />
-                    <input type="submit" value="Change" onClick={postData}/>
+                    <input type="submit" index={i} value="Change" onClick={postData}/>
                 </div> : null
             }
             </>

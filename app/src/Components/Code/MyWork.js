@@ -20,8 +20,7 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
   const getTitle = (e) => {
     uppDateTitle(e.target.getAttribute('value'))
   }
-  
-  console.log(data)
+
   return (
     <>
         {!menuState ?

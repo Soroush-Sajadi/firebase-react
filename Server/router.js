@@ -96,7 +96,8 @@ app.post('/message', (req, res) => {
 app.post('/cathegoryChange',async (req, res) => {
     if (req.files) {
         const reg =/(?<=\F).*\g/;
-        const name = req.files.file.name.match(reg)[0]
+        const name = req.files.file.name.split(',')[0].match(reg)[0];
+        const imageIndex = req.files.file.name.split(',')[1];
         const uploadImage = storage.ref(`cathegory/${name}`).put(req.files.file.data)
         uploadImage.on('state_changed',
         (snapshot) => {
@@ -106,17 +107,24 @@ app.post('/cathegoryChange',async (req, res) => {
             console.log(error)
         },
         () => {
-            storage.ref('cathegory').child(req.files.file.name).getDownloadURL().then(url => {
-                console.log(url)
+            storage.ref(`cathegory`).child(name).getDownloadURL().then(downloadURL => {
+                if ( downloadURL ) {
+                    const usersRef = firebase.database().ref().child(`cathegory/${imageIndex}/image`);
+                    usersRef.set(
+                        `${downloadURL}`
+                    )
+                }
             })
-            
+            .then(() => res.send('Its done'))
         });
     }
 })
 app.post('/galleryChange',async (req, res) => {
     if (req.files) {
-        const cathegory = req.files.file.name.split(/[0-9]/)[0]
-        const uploadImage = storage.ref(`${cathegory}/${req.files.file.name}.jpg`).put(req.files.file.data)
+        const imageIndex = req.files.file.name.split(',')[1];
+        const imageName = req.files.file.name.split(',')[0];
+        const cathegory = imageName.split(/[0-9]/)[0]
+        const uploadImage = storage.ref(`${cathegory}/${imageName}.jpg`).put(req.files.file.data)
         uploadImage.on('state_changed',
         (snapshot) => {
 
@@ -125,10 +133,15 @@ app.post('/galleryChange',async (req, res) => {
             console.log(error)
         },
         () => {
-            storage.ref(`${cathegory}`).child(req.files.file.name).getDownloadURL().then(url => {
-                console.log(url)
+            storage.ref(`${cathegory}`).child(`${imageName}`).getDownloadURL().then(downloadURL => {
+                if ( downloadURL ) {
+                    const usersRef = firebase.database().ref().child(`${cathegory}/${imageIndex}/picture`);
+                    usersRef.set(
+                        `${downloadURL}`
+                    )
+                }
             })
-            
+            .then(() => res.send('Its done'))
         });
     }
 });

@@ -10,7 +10,10 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
     const [ oldImage, setOldImage ] = useState('');
     const [ progress, setProgess ] = useState(0);
     const [ authenticate, setAuthenticate ] = useState(false);
-    const [ wrongPassMessage, setWrongPassMessage ] = useState('')
+    const [ wrongPassMessage, setWrongPassMessage ] = useState('');
+    const [ loadingBar,  setLoadingBar ] = useState(true);
+    const [ reFetch, setReFetch ] = useState(false);
+    const [ imageIndex, setImageIndex ] = useState (0);
     const [ user, setUser ] = useReducer(
         (state, newState) => ({...state, ...newState}),
         {
@@ -45,17 +48,18 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         setOldImage(e.target.getAttribute('url'));
     }
 
-    const postFileNewImage = async () => {
+    const postFileNewImage = () => {
+        setLoadingBar(true);
         const url = 'http://localhost:3000/cathegoryChange';
         const formData = new FormData();
-        formData.append( 'file', file,oldImage)
-        await axios.post(url, formData, {
+        formData.append( 'file', file,[oldImage, imageIndex])
+        axios.post(url, formData,  {
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
-                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+                ProgressEvent.loaded / ProgressEvent.total * 99) + '%';
                 setProgess(progress);
             },
-        })
+        }).then(res => res.data === 'Its done' ? setReFetch(true) || setLoadingBar(false) : null)
         // .then(res => {
         //     console.log(res);
         //     getFile({ name: res.newData.name,
@@ -71,28 +75,37 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
 		// })
     }
 
-	const postData = async () => {
+	const postData =  (e) => {
         if (file !== null) {
-            await postFileNewImage();
+             postFileNewImage();
         }
+        setImageIndex(e.target.getAttribute('index'))
     }
 
     const getTitle = (e) => {
         updateGallery(e.target.getAttribute('value'));
         updateRender('Gallery');
+        
     }
+
+    useEffect(() => {
+        if (reFetch) {
+            setReFetch(false)
+            getData()
+        }
+    }) 
 
     useEffect(() => {
         if( remainAuthenticated ) {
             getData();
         }
-       
     },[])
+
     return(
         <>
         {authenticate || remainAuthenticated ? 
         <div className="remote-wrapper">
-            {progress !== 0 && progress !== '100%' ?
+            {progress !== 0 && loadingBar === true ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
                 <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
                     <p style={{color:'white'}}>{progress}</p>
@@ -107,9 +120,9 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
                 {data.map((item, i) => 
                     <div key={i}  className="cathegory-remote">
                         <h4>{item.title}</h4>
-                            <img value={item.title} src={item.image} onClick={getTitle} />
+                        <img value={item.title} src={item.image} onClick={getTitle} />
                         <input type="file"  url={item.image} onChange={handelChange} />
-                        <input type="submit" value="Change" onClick={postData} />
+                        <input type="submit" index={i} value="Change" onClick={postData} />
                     </div> 
                 ) }
             </div>

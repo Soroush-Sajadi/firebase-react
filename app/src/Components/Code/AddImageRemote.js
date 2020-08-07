@@ -5,7 +5,7 @@ function AddImageRemote ({ lastimageName, updadateReRender }) {
     const [ file, setFile ] = useState(null);
     const [ progress, setProgess ] = useState(0);
     const [ message, setMessage ] = useState('');
-    const [ loadingBar,  setLoadingBar ] = useState(true)
+    const [ loadingBar,  setLoadingBar ] = useState(true);
 
     const handleChange = e => {
         setProgess(0)

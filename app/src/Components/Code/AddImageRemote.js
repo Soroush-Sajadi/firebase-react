@@ -5,6 +5,7 @@ function AddImageRemote ({ lastimageName, updadateReRender }) {
     const [ file, setFile ] = useState(null);
     const [ progress, setProgess ] = useState(0);
     const [ message, setMessage ] = useState('');
+    const [ loadingBar,  setLoadingBar ] = useState(true)
 
     const handleChange = e => {
         setProgess(0)
@@ -14,16 +15,19 @@ function AddImageRemote ({ lastimageName, updadateReRender }) {
     }
 
     const postData = async () => {
+        setLoadingBar(true);
         const url = 'http://localhost:3000/add/image';
         const formData = new FormData();
         formData.append( 'file', file, lastimageName)
         axios.post(url, formData, {
+            headers: {'Content-Type': 'application/json'},
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
                 ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
                 setProgess(progress);
             },
-        }).then(() => updadateReRender(true))
+        })
+        .then((res) => res.data === 'Its done' ? updadateReRender(true) || setLoadingBar(false): null)
         
     }
 
@@ -35,7 +39,7 @@ function AddImageRemote ({ lastimageName, updadateReRender }) {
     }
     return(
         <div>
-            {progress !== 0 && progress !== '100%' ?
+            {progress !== 0 && loadingBar === true ?
                 <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
                 <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
                     <p style={{color:'white' , textAlign:'center'}}>{progress}</p>

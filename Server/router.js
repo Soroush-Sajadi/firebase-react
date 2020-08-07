@@ -159,8 +159,8 @@ app.post('/add/image', (req,res) => {
                         picture:`${downloadURL}`
                     })
                 }
-            }).then(() => res.text('done'))
-            
+            })
+            .then(() => res.send('Its done'))
         })
     }
 })

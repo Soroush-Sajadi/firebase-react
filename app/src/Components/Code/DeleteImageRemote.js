@@ -11,15 +11,15 @@ function DeleteImageRemote ({ imageName, updadateReRender }) {
         const url = `http://localhost:3000/delete/image/${imageName}`
         await fetch(url)
             .then(res => res.json())
-            .then(res => setMessage(res))
+            .then(res => res === 'Its done' ? updadateReRender(true): null)
     }
 
-    const deleteImage = () => {
+    const deleteImage = async () => {
         if (window.confirm("Are you sure you want to delete this picture?")) {
             getImage();
-            updadateReRender(true);
         }
     }
+
     return(
         <div className="deleteIcon">
             <img src={DeleteIcon} alt="delete" onClick={deleteImage}/>

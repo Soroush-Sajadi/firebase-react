@@ -158,12 +158,10 @@ app.post('/add/image', (req,res) => {
                         name:`${name}`,
                         picture:`${downloadURL}`
                     })
-                    
                 }
-            })
-            .then(() => res.json(true))
-            .catch((error) => res.json(error.message))
-        });
+            }).then(() => res.text('done'))
+            
+        })
     }
 })
 

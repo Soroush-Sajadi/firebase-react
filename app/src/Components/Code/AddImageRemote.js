@@ -4,7 +4,7 @@ import axios from 'axios';
 function AddImageRemote ({ lastimageName, updadateReRender }) {
     const [ file, setFile ] = useState(null);
     const [ progress, setProgess ] = useState(0);
-    const [ message, setMessage ] = useState(false);
+    const [ message, setMessage ] = useState('');
 
     const handleChange = e => {
         setProgess(0)
@@ -23,18 +23,16 @@ function AddImageRemote ({ lastimageName, updadateReRender }) {
                 ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
                 setProgess(progress);
             },
-        })
-        // .then(res => res.json())
-        // .then(res => setMessage(res))
+        }).then(() => updadateReRender(true))
+        
     }
 
     const saveData = () => {
         if( file !== null ) {
             postData();
         }
-        // updadateReRender(true);
+       
     }
-
     return(
         <div>
             {progress !== 0 && progress !== '100%' ?

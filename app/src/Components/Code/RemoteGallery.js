@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import AddImageRemote from './AddImageRemote';
 import DeleteImageRemote from './DeleteImageRemote';
 import Back from '../../images/Logo/back.png'
@@ -19,7 +19,8 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const getData = async () => {
         await fetch (`http://localhost:3000/images/${gallery}`)
             .then(res => res.json())
-            .then(res => setData(res) || setLastImageName((res[res.length-1].name)))
+            .then(res => setData(res) || setLastImageName((res[res.length-1].name) ))
+            
     };
 
     const handelChange = e => {
@@ -70,17 +71,18 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         setRefetch(childData);
     }
 
-    useEffect( () => {
+    useEffect(() => {
         if (refetch) {
+            setRefetch(false)
             getData()
         }
     })
 
     useEffect(() => {
-        setRefetch(false)
         getData();
     },[])
-
+    
+    console.log(data)
     return (
         <div className="wrapper-remote">
             {progress !== 0 && progress !== '100%' ?

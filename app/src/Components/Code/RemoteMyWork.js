@@ -13,7 +13,6 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
     const [ wrongPassMessage, setWrongPassMessage ] = useState('');
     const [ loadingBar,  setLoadingBar ] = useState(true);
     const [ reFetch, setReFetch ] = useState(false);
-    const [ imageIndex, setImageIndex ] = useState (0);
     const [ user, setUser ] = useReducer(
         (state, newState) => ({...state, ...newState}),
         {
@@ -45,13 +44,14 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         setProgess(0)
         const file = (e.target.files[0]); 
         setFile(file);
-        setOldImage(e.target.getAttribute('url'));
+        // setOldImage(e.target.getAttribute('url'));
     }
 
-    const postFileNewImage = () => {
+    const postFileNewImage = (oldImage,imageIndex) => {
         setLoadingBar(true);
         const url = 'http://localhost:3000/cathegoryChange';
         const formData = new FormData();
+        console.log(imageIndex)
         formData.append( 'file', file,[oldImage, imageIndex])
         axios.post(url, formData,  {
             onUploadProgress: (ProgressEvent) => {
@@ -77,9 +77,8 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
 
 	const postData =  (e) => {
         if (file !== null) {
-             postFileNewImage();
+             postFileNewImage(e.target.getAttribute('url'),e.target.getAttribute('index'));
         }
-        setImageIndex(e.target.getAttribute('index'))
     }
 
     const getTitle = (e) => {
@@ -100,7 +99,6 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
             getData();
         }
     },[])
-
     return(
         <>
         {authenticate || remainAuthenticated ? 
@@ -122,7 +120,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
                         <h4>{item.title}</h4>
                         <img value={item.title} src={item.image} onClick={getTitle} />
                         <input type="file"  url={item.image} onChange={handelChange} />
-                        <input type="submit" index={i} value="Change" onClick={postData} />
+                        <input type="submit" url={item.image} index={data.indexOf(item)} value="Change" onClick={postData} />
                     </div> 
                 ) }
             </div>

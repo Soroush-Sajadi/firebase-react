@@ -9,11 +9,9 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState('Loading');
     const [ file, setFile ] = useState(null);
-    const [ oldImage, setOldImage ] = useState('');
     const [progress, setProgess] = useState(0);
     const [ lastimageName, setLastImageName ] = useState('');
     const [ refetch, setRefetch ] = useState(false);
-    const [ imageIndex, setImageIndex ] = useState (0);
     const [ loadingBar,  setLoadingBar ] = useState(true);
 
     const [render, setRerender ] = useState(true)
@@ -30,13 +28,13 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         setProgess(0)
         const file = (e.target.files[0]); 
         setFile(file);
-        setOldImage(e.target.getAttribute('name'));
     };
 
-    const postFileNewImage = () => {
+    const postFileNewImage = (oldImage, imageIndex) => {
         setLoadingBar(true);
         const url = 'http://localhost:3000/galleryChange';
         const formData = new FormData();
+        console.log(imageIndex, oldImage)
         formData.append( 'file', file, [ oldImage, imageIndex ])
         axios.post(url, formData, {
             onUploadProgress: (ProgressEvent) => {
@@ -44,7 +42,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                 ProgressEvent.loaded / ProgressEvent.total * 99) + '%';
                 setProgess(progress);
             },
-        }).then(res => console.log(res))
+        })
         .then(res => res.data === 'Its done' ? setRefetch(true)|| setLoadingBar(false): null)
         
         // .then(res => {
@@ -69,9 +67,9 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
 
     const postData = (e) => {
         if ( file !== null ) {
-            postFileNewImage()
+            console.log(e.target.getAttribute('imageName'))
+            postFileNewImage(e.target.getAttribute('imageName'), e.target.getAttribute('index'))
         }
-        setImageIndex(e.target.getAttribute('index'))
     };
 
     const updadateReRender = (childData) => {
@@ -113,7 +111,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                     <img className="gallery-remote-img" src={item.picture} />
                     <DeleteImageRemote imageName={item.name} updadateReRender={updadateReRender}/>
                     <input type="file" name={item.name} onChange={handelChange} />
-                    <input type="submit" index={i} value="Change" onClick={postData}/>
+                    <input type="submit" imageName={item.name} index={i} value="Change" onClick={postData}/>
                 </div> : null
             }
             </>

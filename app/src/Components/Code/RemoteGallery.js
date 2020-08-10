@@ -13,6 +13,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     const [ lastimageName, setLastImageName ] = useState('');
     const [ refetch, setRefetch ] = useState(false);
     const [ loadingBar,  setLoadingBar ] = useState(true);
+    const [ newImageRequest, setNewImageRequest ] = useState(false)
 
     const [render, setRerender ] = useState(true)
 
@@ -76,6 +77,10 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         setRefetch(childData);
     }
 
+    const updateNewImageRequest = (childData) => {
+        setNewImageRequest(childData);
+    }
+
     useEffect(() => {
         if (refetch) {
             setRefetch(false)
@@ -87,7 +92,6 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         getData();
     },[])
 
-    console.log(data)
     return (
         <div className="wrapper-remote">
             {progress !== 0 && loadingBar === true ?
@@ -101,13 +105,13 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             }
             <div className="remote-header">
                 <img src={Back} onClick={goBack} />
-                <AddImageRemote lastimageName={lastimageName} updadateReRender={updadateReRender}/>
+                <AddImageRemote lastimageName={lastimageName} updadateReRender={updadateReRender} updateNewImageRequest={updateNewImageRequest}/>
             </div>
             <div className="remote-gallery-wrapper">
             {data.map((item, i) => 
             <>
             {item !== null ? 
-                <div key={i}  className="gallery-remote">
+                <div style={!refetch && newImageRequest  ? {filter:'blur(3px)'}: null} key={i}  className="gallery-remote">
                     <img className="gallery-remote-img" src={item.picture} />
                     <DeleteImageRemote imageName={item.name} updadateReRender={updadateReRender}/>
                     <input type="file" name={item.name} onChange={handelChange} />

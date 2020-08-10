@@ -44,14 +44,12 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         setProgess(0)
         const file = (e.target.files[0]); 
         setFile(file);
-        // setOldImage(e.target.getAttribute('url'));
     }
 
     const postFileNewImage = (oldImage,imageIndex) => {
         setLoadingBar(true);
         const url = 'http://localhost:3000/cathegoryChange';
         const formData = new FormData();
-        console.log(imageIndex)
         formData.append( 'file', file,[oldImage, imageIndex])
         axios.post(url, formData,  {
             onUploadProgress: (ProgressEvent) => {
@@ -104,17 +102,19 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         {authenticate || remainAuthenticated ? 
         <div className="remote-wrapper">
             {progress !== 0 && loadingBar === true ?
-                <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
-                <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
-                    <p style={{color:'white'}}>{progress}</p>
+            <div className="progress-bar-wrapper">
+                <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd'}} >
+                <div style={{ width: progress, height:"30px", backgroundColor:'#881d1d', borderRadius:'20px'}}>
+                    <p style={{color:'white', fontSize:'21px'}}>{progress}</p>
                 </div>
+            </div>
             </div>
             :
             null
             }
             {data.length === 0 ? loading
             :
-            <div className="cathegories-wrapper-remote">
+            <div style={progress !== 0 && loadingBar === true ? {filter:'blur(3px)'}: null} className="cathegories-wrapper-remote">
                 {data.map((item, i) => 
                     <div key={i}  className="cathegory-remote">
                         <h4>{item.title}</h4>

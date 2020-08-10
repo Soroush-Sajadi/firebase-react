@@ -26,38 +26,15 @@ const storage = firebase.storage();
 // Helper functions
 const { sendMail } = require('./helperFunctions/sendMail')
 const { imageName } = require('./helperFunctions/setName')
+
+
 //___________________________________________________________________________________________________________________________
-
-//const { uuidv4 } = require('./helper-function/idGenerator')
-//require('dotenv').config();
-
-//const pool = require("./DB/index");
-//__________________________________________________________________________________________________________________________
-// middle ware
-// const dirCathegory = path.join(__dirname, '/images/cathegories-images');
-// const dirWedding = path.join(__dirname, '/images/Wedding');
-// const dirKids = path.join(__dirname, '/images/Kids');
-// const dirModeling = path.join(__dirname, '/images/Modeling');
-// const dirCouples = path.join(__dirname, '/images/Couples');
-// const dirPortrait = path.join(__dirname, '/images/Portrait');
-
-// app.use(express.static(dirCathegory));
-// app.use(express.static(dirWedding));
-// app.use(express.static(dirKids));
-// app.use(express.static(dirModeling));
-// app.use(express.static(dirCouples));
-// app.use(express.static(dirPortrait));
+// Middle ware
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(fileUpload());
-// app.use((req, res, next) => {
-//     res.append('Access-Control-Allow-Origin', ['*']);
-//     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.append('Access-Control-Allow-Headers', 'Content-Type');
-//     next();
-// });
 
 
 //___________________________________________________________________________________________________________________________________________
@@ -68,7 +45,6 @@ app.get('/', (req, res) => {
     rootRef.once('value', snap => {
         res.json(snap.val());
     })
-    
 })
 
 app.get('/images/:id', (req, res) => {
@@ -124,7 +100,6 @@ app.post('/galleryChange',async (req, res) => {
         const imageIndex = req.files.file.name.split(',')[1];
         const imageName = req.files.file.name.split(',')[0];
         const cathegory = imageName.split(/[0-9]/)[0]
-        console.log(imageIndex,imageName,cathegory)
         const uploadImage = storage.ref(`${cathegory}/${imageName}.jpg`).put(req.files.file.data)
         uploadImage.on('state_changed',
         (snapshot) => {
@@ -198,8 +173,6 @@ app.get('/delete/image/:name', (req, res) => {
             res.json(error.message)
         })
     })
-    
-    
 
 app.get('/password/:firstPass/:secondPass', (req, res) => {
     const firstPass = req.params.firstPass;
@@ -213,9 +186,6 @@ app.get('/password/:firstPass/:secondPass', (req, res) => {
         }
     })
 })
-
-
-
 
 const port = 3000;
 app.listen(port, () => console.log(`listening on port ${port}!`))

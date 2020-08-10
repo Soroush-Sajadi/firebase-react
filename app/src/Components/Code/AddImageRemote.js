@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import '../Style/AddImageRemote.css'
 
-function AddImageRemote ({ lastimageName, updadateReRender }) {
+function AddImageRemote ({ lastimageName, updadateReRender, updateNewImageRequest }) {
     const [ file, setFile ] = useState(null);
     const [ progress, setProgess ] = useState(0);
     const [ message, setMessage ] = useState('');
@@ -27,29 +28,34 @@ function AddImageRemote ({ lastimageName, updadateReRender }) {
                 setProgess(progress);
             },
         })
-        .then((res) => res.data === 'Its done' ? updadateReRender(true) || setLoadingBar(false): null)
+        .then((res) => res.data === 'Its done' ? updadateReRender(true) || setLoadingBar(false) || updateNewImageRequest(false): null)
         
     }
 
     const saveData = () => {
         if( file !== null ) {
+            updateNewImageRequest(true)
             postData();
         }
        
     }
     return(
-        <div>
+        <div className="add-image-remote-wrapper">
             {progress !== 0 && loadingBar === true ?
-                <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
-                <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
-                    <p style={{color:'white' , textAlign:'center'}}>{progress}</p>
+                <div className="progress-bar-wrapper-add">
+                <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd', position:'absolute', left:'20px'}} >
+                <div style={{ width: progress, height:"30px", backgroundColor:'#881d1d', borderRadius:'20px'}}>
+                    <p style={{color:'white', fontSize:'21px'}}>{progress}</p>
                 </div>
+            </div>
             </div>
             :
             null
             }
-            <input type="file" onChange={handleChange} />
-            <input type="submit" value="Add Image" onClick={saveData} />
+            <div>
+                <input type="file" onChange={handleChange} />
+                <input type="submit" value="Add Image" onClick={saveData} />
+            </div>
         </div>
     )
 }

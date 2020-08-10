@@ -12,7 +12,6 @@ function AddImageRemote ({ lastimageName, updadateReRender, updateNewImageReques
         setProgess(0)
         const file = (e.target.files[0]); 
         setFile(file);
-        // setOldImage(e.target.getAttribute('url'));
     }
 
     const postData = async () => {

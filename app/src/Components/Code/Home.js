@@ -1,9 +1,10 @@
 import React from 'react';
-import background from '../../images/Background-Pictures/Background3.jpg';
+import background from '../../images/Background-Pictures/camera2.jpg';
 import OpenMenu from './OpenMenu';
 import '../Style/Home.css';
 
 function Home({menuState,language, upDateMenuState, uppDateLanguage}) {
+  console.log(window.innerWidth, window.innerHeight)
   return (
     <>
     {!menuState ?

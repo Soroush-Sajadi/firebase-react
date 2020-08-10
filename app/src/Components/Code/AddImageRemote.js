@@ -45,7 +45,7 @@ function AddImageRemote ({ lastimageName, updadateReRender, updateNewImageReques
                 <div className="progress-bar-wrapper-add">
                 <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd', position:'absolute', left:'20px'}} >
                 <div style={{ width: progress, height:"30px", backgroundColor:'#881d1d', borderRadius:'20px'}}>
-                    <p style={{color:'white', fontSize:'21px'}}>{progress}</p>
+                    <p style={{color:'white', fontSize:'21px'}}>{progress === '100%' ? 'Please wait...' : progress }</p>
                 </div>
             </div>
             </div>

@@ -35,12 +35,11 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         setLoadingBar(true);
         const url = 'http://localhost:3000/galleryChange';
         const formData = new FormData();
-        console.log(imageIndex, oldImage)
         formData.append( 'file', file, [ oldImage, imageIndex ])
         axios.post(url, formData, {
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
-                ProgressEvent.loaded / ProgressEvent.total * 99) + '%';
+                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
                 setProgess(progress);
             },
         })
@@ -95,10 +94,12 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
     return (
         <div className="wrapper-remote">
             {progress !== 0 && loadingBar === true ?
-                <div className="progress-bar" style={{width: '100%', height:'20px', backgroundColor: '#ddd'}} >
-                <div style={{ width: progress, height:"20px", backgroundColor:'green'}}>
-                    <p style={{color:'white' , textAlign:'center'}}>{progress}</p>
+                <div className="progress-bar-wrapper-add">
+                <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd', position:'absolute', left:'20px'}} >
+                <div style={{ width: progress, height:"30px", backgroundColor:'#881d1d', borderRadius:'20px'}}>
+                    <p style={{color:'white', fontSize:'21px'}}>{progress === '100%' ? 'Please wait...' : progress }</p>
                 </div>
+            </div>
             </div>
             :
             null
@@ -111,11 +112,13 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             {data.map((item, i) => 
             <>
             {item !== null ? 
-                <div style={!refetch && newImageRequest  ? {filter:'blur(3px)'}: null} key={i}  className="gallery-remote">
+                <div style={ (progress !== 0 && loadingBar === true) || newImageRequest ? {filter:'blur(3px)'}: null} key={i} className="gallery-remote">
                     <img className="gallery-remote-img" src={item.picture} />
                     <DeleteImageRemote imageName={item.name} updadateReRender={updadateReRender}/>
-                    <input type="file" name={item.name} onChange={handelChange} />
-                    <input type="submit" imageName={item.name} index={i} value="Change" onClick={postData}/>
+                    <div className="file-wrapper">
+                        <input className="file" type="file" name={item.name} onChange={handelChange} />
+                        <input type="submit" imageName={item.name} index={i} value="Change" onClick={postData}/>
+                    </div>
                 </div> : null
             }
             </>

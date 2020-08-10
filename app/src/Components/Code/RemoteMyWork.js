@@ -42,7 +42,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
 
     const handelChange = e => {
         setProgess(0)
-        const file = (e.target.files[0]); 
+        const file = (e.target.files[0]);
         setFile(file);
     }
 
@@ -54,7 +54,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         axios.post(url, formData,  {
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
-                ProgressEvent.loaded / ProgressEvent.total * 99) + '%';
+                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
                 setProgess(progress);
             },
         }).then(res => res.data === 'Its done' ? setReFetch(true) || setLoadingBar(false) : null)
@@ -105,7 +105,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
             <div className="progress-bar-wrapper">
                 <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd'}} >
                 <div style={{ width: progress, height:"30px", backgroundColor:'#881d1d', borderRadius:'20px'}}>
-                    <p style={{color:'white', fontSize:'21px'}}>{progress}</p>
+                    <p style={{color:'white', fontSize:'21px'}}> {progress === '100%' ? 'Please wait...': progress}</p>
                 </div>
             </div>
             </div>
@@ -119,8 +119,10 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
                     <div key={i}  className="cathegory-remote">
                         <h4>{item.title}</h4>
                         <img value={item.title} src={item.image} onClick={getTitle} />
-                        <input type="file"  url={item.image} onChange={handelChange} />
-                        <input type="submit" url={item.image} index={data.indexOf(item)} value="Change" onClick={postData} />
+                        <div className="file-wrapper">
+                            <input className="file" type="file"  url={item.image} onChange={handelChange} />
+                            <input type="submit" url={item.image} index={data.indexOf(item)} value="Change" onClick={postData} />
+                        </div>
                     </div> 
                 ) }
             </div>

@@ -5,6 +5,10 @@
    background-size: 100% 100%;
    background-position: center center
 }
+.home-wrapper h3 {
+   font-size: 300%;
+    color: cornflowerblue;
+}
 .home-wrapper img {
    margin-top: 80px;
    background-position: center center;
@@ -25,9 +29,19 @@
 }
 .home-text {
    position: absolute;
-   top: 50%;
-   left: 50%;
+   top: 26%;
+   left: 26%;
    transform: translate(-50%, -50%);
  }
 
-
+ @media screen and (max-width: 900px) {
+   .home-wrapper h3 {
+      font-size: 34px;
+   }
+   .home-text {
+      position: absolute;
+      top: 26%;
+      left: 34%;
+   transform: translate(-50%, -50%);
+   }
+ }

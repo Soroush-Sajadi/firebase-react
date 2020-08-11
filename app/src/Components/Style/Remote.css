@@ -27,7 +27,7 @@
   }
   .login-wraper input:focus {
     outline: none;
-    border-bottom: 2px solid #379fef;
+    border-bottom: 4px solid #379fef;
     transition: 0.2s;
     font-size: 1rem;
     font-weight: 700;
@@ -40,7 +40,7 @@
     height: 35px;
     width: 50%;
     margin-top: 25px;
-    background-color: #222;
+    background-color: #04090d;
   }
   ::-webkit-input-placeholder {
     text-align: center;

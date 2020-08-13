@@ -26,8 +26,11 @@ function Gallery({ menuState,language, upDateMenuState, uppDateLanguage }) {
 			{data.length === 0 ? <div className="loading"><Spinner color="white" size={200} /></div>
 			:
 			<div className = "wrapper">
-				{data.map((item, i)=> 
+				{data.map((item, i)=>
+					item !== null ?
 					<img key={i} src={item.picture}/>
+					:
+					null
 				)}
 			</div>
 			}

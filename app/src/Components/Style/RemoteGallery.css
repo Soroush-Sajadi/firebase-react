@@ -4,6 +4,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    
 }
 .wrapper-remote {
     display: flex;
@@ -32,4 +33,7 @@
 }
 .update-remote {
     display: flex;
+}
+.progress-bar {
+    position: fixed;
 }

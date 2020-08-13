@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { NavLink } from 'react-router-dom';
+import firebase from 'firebase';
 import axios from 'axios'
 import '../Style/Remote.css'
 
@@ -13,7 +14,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
     const [ wrongPassMessage, setWrongPassMessage ] = useState('');
     const [ loadingBar,  setLoadingBar ] = useState(true);
     const [ reFetch, setReFetch ] = useState(false);
-    const [ user, setUser ] = useReducer(
+    const [ userIn, setUserIn ] = useReducer(
         (state, newState) => ({...state, ...newState}),
         {
         firstPass: '',
@@ -21,16 +22,55 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         }
       );
 
+            const firebaseConfig = {
+        apiKey: "AIzaSyDLmu0djMfie3aJmxygeSFatfxl-9gB_u4",
+        authDomain: "makan-5c9d1.firebaseapp.com",
+        databaseURL: "https://makan-5c9d1.firebaseio.com",
+        projectId: "makan-5c9d1",
+        storageBucket: "makan-5c9d1.appspot.com",
+        messagingSenderId: "801882567983",
+        appId: "1:801882567983:web:9c6ec1dfa7cce09ef6ddda",
+        measurementId: "G-MP3HLNWGGJ"
+      };
+     
+      // Initialize Firebase
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+
+  }
+
+  const auth = firebase.auth()
+
     const handleChangePass = evt => {
         const name = evt.target.name;
         const newValue = evt.target.value;
-        setUser({[name]: newValue});
+        setUserIn({[name]: newValue});
     }
+    // const user = firebase.auth().currentUser;
+    // const token = user && (await user.getIdToken());
+  
+    // const res = await fetch(url, {
+    //   methodL 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // });
+  
+    // return res.json();
 
     const getLogIn = async () => {
-        await fetch(`http://localhost:3000/password/${user.firstPass}/${user.secondPass}`)
-            .then(res => res.json())
-            .then(res => setAuthenticate(res) || res ? getData(): setWrongPassMessage('Password is wrong') )
+        const user = auth.currentUser;
+        const token = user && (await user.getIdToken());
+        console.log(user)
+            await fetch(`http://localhost:3000/password/${userIn.firstPass}/${userIn.secondPass}`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+    },
+            })
+                .then(res => res.json())
+                .then(res => setAuthenticate(res) || res ? getData(): setWrongPassMessage('Password is wrong') )
     }
 
     const getData = async() => {
@@ -57,7 +97,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
                 ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
                 setProgess(progress);
             },
-        }).then(res => res.data === 'Its done' ? setReFetch(true) || setLoadingBar(false) : null)
+        }).then(res => res.data === 'Its done' ? setReFetch(true) || setLoadingBar(false): null)
         // .then(res => {
         //     console.log(res);
         //     getFile({ name: res.newData.name,
@@ -95,7 +135,9 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
     useEffect(() => {
         if( remainAuthenticated ) {
             getData();
+           
         }
+        // getToken()
     },[])
     return(
         <>
@@ -131,8 +173,8 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         :
         
         <div className="login-wraper">
-            <input className="login" type="text" name="firstPass" value={user.firstPass} placeholder="First password" onChange={ handleChangePass } />
-            <input className="login" type="text" name="secondPass" value={user.secondPass} placeholder="Second password" onChange={ handleChangePass } />
+            <input className="login" type="text" name="firstPass" value={userIn.firstPass} placeholder="First password" onChange={ handleChangePass } />
+            <input className="login" type="text" name="secondPass" value={userIn.secondPass} placeholder="Second password" onChange={ handleChangePass } />
             <input className="submit" type="submit" onClick={getLogIn}/>
             {wrongPassMessage !== ''? <h3>{wrongPassMessage}</h3>: null}
         </div>
@@ -142,43 +184,31 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
 }
 export default RemoteMyWork;
 
-// const [file, setFile] = useState(''); // storing the uploaded file    // storing the recived file from backend
-// const [data, getFile] = useState({ name: "", path: "" });
-// const [progress, setProgess] = useState(0); // progess bar
-// const el = useRef(); // accesing input element
-// const handleChange = (e) => {
-//     setProgess(0)
-//     const file = e.target.files[0]; // accesing file
-//     console.log(file);
-//     setFile(file); // storing file
-// }
-// const uploadFile = () => {
-//     const formData = new FormData();        formData.append('file', file); // appending file
-//     axios.post('http://localhost:4500/upload', formData, {
-//         onUploadProgress: (ProgressEvent) => {
-//             let progress = Math.round(
-//             ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-//             setProgess(progress);
-//         }
-//     }).then(res => {
-//         console.log(res);
-//         getFile({ name: res.data.name,
-//                  path: 'http://localhost:4500' + res.data.path
-//                })
-//     }).catch(err => console.log(err))}
-// return (
-//     <div>
-//         <div className="file-upload">
-//             <input type="file" ref={el} onChange={handleChange} />                <div className="progessBar" style={{ width: progress }}>
-//                {progress}
-//             </div>
-//             <button onClick={uploadFile} className="upbutton">                   Upload
-//             </button>
-//         <hr />
-//         {/* displaying received image*/}
-//         {data.path && <img src={data.path} alt={data.name} />}
-//         </div>
-//     </div>
-// );
-// }
-// export default FileUpload;
+
+
+//       const firebaseConfig = {
+//         apiKey: "AIzaSyDLmu0djMfie3aJmxygeSFatfxl-9gB_u4",
+//         authDomain: "makan-5c9d1.firebaseapp.com",
+//         databaseURL: "https://makan-5c9d1.firebaseio.com",
+//         projectId: "makan-5c9d1",
+//         storageBucket: "makan-5c9d1.appspot.com",
+//         messagingSenderId: "801882567983",
+//         appId: "1:801882567983:web:9c6ec1dfa7cce09ef6ddda",
+//         measurementId: "G-MP3HLNWGGJ"
+//       };
+     
+//       // Initialize Firebase
+//       if (!firebase.apps.length) {
+//         firebase.initializeApp(firebaseConfig);
+//   }
+    //   firebase.analytics();
+    //   const getToken = () => {
+    //     firebase.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //           userObj.user = user
+    //           firebase.auth().currentUser.getIdToken().then((idToken) => {
+    //             console.log(`idToken ==> ${idToken}`)
+    //           })
+    //         }
+    //       })
+    //   } 

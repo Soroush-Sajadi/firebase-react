@@ -43,7 +43,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                 setProgess(progress);
             },
         })
-        .then(res => res.data === 'Its done' ? setRefetch(true)|| setLoadingBar(false): null)
+        .then(res => res.data === 'Its done' ? setRefetch(true)|| setLoadingBar(false) : null)
         
         // .then(res => {
         //     console.log(res);
@@ -95,7 +95,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
         <div className="wrapper-remote">
             {progress !== 0 && loadingBar === true ?
                 <div className="progress-bar-wrapper-add">
-                <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd', position:'absolute', left:'20px'}} >
+                <div className="progress-bar" style={{width: '50%', height:'30px', backgroundColor: '#ddd', left:'20px'}} >
                 <div style={{ width: progress, height:"30px", backgroundColor:'#881d1d', borderRadius:'20px'}}>
                     <p style={{color:'white', fontSize:'21px'}}>{progress === '100%' ? 'Please wait...' : progress }</p>
                 </div>
@@ -108,7 +108,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                 <img src={Back} onClick={goBack} />
                 <AddImageRemote lastimageName={lastimageName} updadateReRender={updadateReRender} updateNewImageRequest={updateNewImageRequest}/>
             </div>
-            <div className="remote-gallery-wrapper">
+            <div style={progress !== 0 && loadingBar === true ? {position:'absolute', zIndex:'1'}: null} className="remote-gallery-wrapper">
             {data.map((item, i) => 
             <>
             {item !== null ? 

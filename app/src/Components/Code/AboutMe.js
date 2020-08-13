@@ -25,6 +25,7 @@ function AboutMe({ menuState, language,upDateMenuState, uppDateLanguage }) {
                 <h3> Makan är en Iranskt fotografer med mer än 10 år erfarenhet.</h3>
               } 
             </div>
+            
           </div>
         </div>}
     </div>

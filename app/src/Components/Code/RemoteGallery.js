@@ -108,7 +108,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                 <img src={Back} onClick={goBack} />
                 <AddImageRemote lastimageName={lastimageName} updadateReRender={updadateReRender} updateNewImageRequest={updateNewImageRequest}/>
             </div>
-            <div style={progress !== 0 && loadingBar === true ? {position:'absolute', zIndex:'1'}: null} className="remote-gallery-wrapper">
+            <div style={progress !== 0 && loadingBar === true || newImageRequest ? {position:'absolute', zIndex:'1'}: null} className="remote-gallery-wrapper">
             {data.map((item, i) => 
             <>
             {item !== null ? 

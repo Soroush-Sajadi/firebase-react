@@ -18,7 +18,7 @@ HTML, BODY {
     -webkit-box-flex: 1;
             flex-grow: 1;
     margin: auto;
-    max-width: 1200px;
+    max-width: 90%;
     max-height: 1200px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);

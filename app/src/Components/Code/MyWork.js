@@ -34,6 +34,7 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
             <h4>{language === 'English' ? item.English: item.Svenska}</h4>
           </div>
             <div className="my-work-img">
+              <h3>{item.title}</h3>
               <NavLink to={"/my work/" + item.title.toLowerCase()}>
                 <img value={item.title} onClick={getTitle} src={item.image} />
               </NavLink>

@@ -37,6 +37,7 @@
     margin-left: 17%; */
     font-family: 'Brush Script MT';
     font-size: 50px;
+    text-shadow: 0px 0px 10px cornflowerblue;
     
 }
 .my-work-title:nth-child(2n) h1 {
@@ -48,8 +49,12 @@
     width: 65%;
     height: 350px;
 }
+.my-work-img h3 {
+    font-family: 'Brush Script MT';
+    text-shadow: 0px 0px 2px cornflowerblue
+}
 .my-work-img img {
-    width: 70%;
+    width: 58%;
     height: 300px;
     margin-top: 25px;
     transition: transform .1s;

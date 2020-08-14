@@ -14,6 +14,7 @@
 .cathegory-remote img {
     width: 250px;
     height: 200px;
+    cursor: pointer;
 }
 .loading-remote {
     background-color: blue;
@@ -71,6 +72,10 @@
   .file-wrapper{
     display: flex;
   }
+  .file-wrapper input {
+    cursor: pointer;
+  }
   .file {
     width: 80%;
+    cursor: pointer;
   }

@@ -6,6 +6,9 @@
     display: flex;
     flex-direction: column;
 }
+.add-image-remote-wrapper input {
+    cursor: pointer;
+}
 .progress-bar{
     position: fixed;
 }

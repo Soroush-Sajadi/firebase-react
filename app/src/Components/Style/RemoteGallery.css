@@ -21,12 +21,16 @@
 .gallery-remote-img {
     width: 250px;
     height: 200px;
+    cursor: pointer;
 }
 .loading-remote {
     background-color: blue;
 } 
 .remote-header {
     display: flex;
+}
+.remote-header img {
+    cursor: pointer;
 }
 .remote-header img {
     width: 20px;

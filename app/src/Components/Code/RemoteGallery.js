@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import AddImageRemote from './AddImageRemote';
 import DeleteImageRemote from './DeleteImageRemote';
+import { Spinner } from 'react-spinners-css';
 import Back from '../../images/Logo/back.png'
 import axios from 'axios';
 import '../Style/RemoteGallery.css'
@@ -109,6 +110,9 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
                 <AddImageRemote lastimageName={lastimageName} updadateReRender={updadateReRender} updateNewImageRequest={updateNewImageRequest}/>
             </div>
             <div style={progress !== 0 && loadingBar === true || newImageRequest ? {position:'absolute', zIndex:'1'}: null} className="remote-gallery-wrapper">
+            {data.length === 0 ? <div className="loading"><Spinner color="white" size={200} /></div> 
+            :
+            <>
             {data.map((item, i) => 
             <>
             {item !== null ? 
@@ -123,6 +127,8 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
             }
             </>
                 ) }
+                </>
+            }
             </div>
         </div>
     )

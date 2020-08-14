@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { NavLink } from 'react-router-dom';
-import firebase from 'firebase';
+import { Spinner } from 'react-spinners-css';
+// import firebase from 'firebase';
 import axios from 'axios'
 import '../Style/Remote.css'
 
@@ -22,24 +23,24 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         }
       );
 
-            const firebaseConfig = {
-        apiKey: "AIzaSyDLmu0djMfie3aJmxygeSFatfxl-9gB_u4",
-        authDomain: "makan-5c9d1.firebaseapp.com",
-        databaseURL: "https://makan-5c9d1.firebaseio.com",
-        projectId: "makan-5c9d1",
-        storageBucket: "makan-5c9d1.appspot.com",
-        messagingSenderId: "801882567983",
-        appId: "1:801882567983:web:9c6ec1dfa7cce09ef6ddda",
-        measurementId: "G-MP3HLNWGGJ"
-      };
+//             const firebaseConfig = {
+//         apiKey: "AIzaSyDLmu0djMfie3aJmxygeSFatfxl-9gB_u4",
+//         authDomain: "makan-5c9d1.firebaseapp.com",
+//         databaseURL: "https://makan-5c9d1.firebaseio.com",
+//         projectId: "makan-5c9d1",
+//         storageBucket: "makan-5c9d1.appspot.com",
+//         messagingSenderId: "801882567983",
+//         appId: "1:801882567983:web:9c6ec1dfa7cce09ef6ddda",
+//         measurementId: "G-MP3HLNWGGJ"
+//       };
      
-      // Initialize Firebase
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
+//       // Initialize Firebase
+//       if (!firebase.apps.length) {
+//         firebase.initializeApp(firebaseConfig);
 
-  }
+//   }
 
-  const auth = firebase.auth()
+//   const auth = firebase.auth()
 
     const handleChangePass = evt => {
         const name = evt.target.name;
@@ -60,14 +61,14 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
     // return res.json();
 
     const getLogIn = async () => {
-        const user = auth.currentUser;
-        const token = user && (await user.getIdToken());
-        console.log(user)
+        // const user = auth.currentUser;
+        // const token = user && (await user.getIdToken());
+        // console.log(user)
             await fetch(`http://localhost:3000/password/${userIn.firstPass}/${userIn.secondPass}`,{
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-    },
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `Bearer ${token}`,
+    // },
             })
                 .then(res => res.json())
                 .then(res => setAuthenticate(res) || res ? getData(): setWrongPassMessage('Password is wrong') )
@@ -154,7 +155,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
             :
             null
             }
-            {data.length === 0 ? loading
+            {data.length === 0 ? <div className="loading"><Spinner color="white" size={200} /></div> 
             :
             <div style={progress !== 0 && loadingBar === true ? {filter:'blur(3px)'}: null} className="cathegories-wrapper-remote">
                 {data.map((item, i) => 

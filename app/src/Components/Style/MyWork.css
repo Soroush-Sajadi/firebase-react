@@ -12,32 +12,37 @@
 }
 .my-work:nth-child(2n) {
     display: flex;
-    flex-direction: row-reverse
+    flex-direction: row-reverse;
+   
 
 }
 .my-work-title {
     display: flex;
     flex-direction: column;
     width: 45%;
-    margin-top: 60px;
+    margin-top: 142px;
     color: white;
+    margin-left: -23px
    
 
 }
+/* .my-work-title:nth-child(2n) {
+    margin-left: 20px ;
+    
+} */
 
-.my-work-title h4 {
-    text-indent: 50px;
-    text-align: justify;
-    letter-spacing: 3px;
-    margin-left: 5%;
-    color: white;
+.my-work-title h1 {
+    /* text-align: left;
+    
+    margin-left: 17%; */
+    font-family: 'Brush Script MT';
+    font-size: 50px;
+    
 }
-.my-work-title h4:nth-child(2n) {
-    text-indent: 50px;
-    margin-right: 5%;
-    text-align: justify;
-    letter-spacing: 3px;
-    margin-top: 25px;
+.my-work-title:nth-child(2n) h1 {
+  text-align: left;
+    
+    margin-left: 30%;
 }
 .my-work-img {
     width: 65%;

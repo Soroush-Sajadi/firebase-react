@@ -67,13 +67,15 @@ function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 			<img className="close" src={close} alt="close" onClick={sendMail}/>
 			{emailResponse === 'Email sent' ? 
 			<>
-				<h4 style={{color: '#4caf50'}}>We have recived your message!</h4>
-				<h4>We will answer your question in a very short time</h4>
+				{language === 'English' ? <h4 style={{color: '#4caf50'}}>We have recived your message!</h4>: <h4 style={{color: '#4caf50'}}>Vi har fått ditt medelande!</h4>}
+				{language === 'English' ? <h4>We will answer your question in a very short time</h4>: <h4>Vi svarar din fråga i en vädig kort tid</h4>}
+				
 				</>
 				:
 				<>
-				<h3>Ask Me</h3>
-				<h4>Write your question in the box bellow.</h4>
+				{language === 'English' ? <h3>Ask Me</h3>: <h3>Fråga Mig</h3>}
+				{language === 'English' ? <h4>Write your question in the box bellow.</h4>: <h4>Skriv din fråga här</h4>}
+				<h4></h4>
 				<h5>{ error }</h5>
 				</>
 			}
@@ -85,19 +87,19 @@ function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 				null
 			}
 			<fieldset>
-				<input name="name" value={userInput.name} onChange={handleChange} placeholder="Your name" type="text" tabindex="1" required autofocus />
+				<input name="name" value={userInput.name} onChange={handleChange} placeholder={language === 'English' ? "Your name" : 'Ditt Namn' } type="text" tabindex="1" required autofocus />
 			</fieldset>
 			<fieldset>
-				<input name="email" value={userInput.mail} onChange={handleChange} placeholder="Your Email Address" type="email" tabindex="2" required />
+				<input name="email" value={userInput.mail} onChange={handleChange} placeholder={language === 'English' ? "Email" : 'Email' } type="email" tabindex="2" required />
 			</fieldset>
 			<fieldset>
-				<input name="topic" value={userInput.topic} onChange={handleChange} placeholder="Topic" type="tel" tabindex="3" required />
+				<input name="topic" value={userInput.topic} onChange={handleChange} placeholder={language === 'English' ? "Topic" : 'Ämne' } type="tel" tabindex="3" required />
 			</fieldset>
 			<fieldset>
-				<textarea name="message" value={userInput.message} onChange={handleChange} placeholder="Type your message here...." tabindex="5" required></textarea>
+				<textarea name="message" value={userInput.message} onChange={handleChange} placeholder={language === 'English' ? "Type your message here...." : 'Skriv ditt medelande här...' } tabindex="5" required></textarea>
 			</fieldset>
 			<fieldset>
-				<input className="button" onClick={mailIsSent} value="submit" name="submit" type="submit" id="contact-submit" data-submit="...Sending"  />
+				<input className="button" onClick={mailIsSent} value={language === 'English' ? 'Submit': 'Skicka '} name="submit" type="submit" id="contact-submit" data-submit="...Sending"  />
 			</fieldset>
 			</div>
 		</div>

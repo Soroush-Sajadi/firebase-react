@@ -45,6 +45,7 @@
   }
   ::-webkit-input-placeholder {
     text-align: center;
+
      }
  ::-webkit-input-placeholder:focus {
   text-align: right;

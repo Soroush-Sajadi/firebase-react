@@ -174,8 +174,8 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         :
         
         <div className="login-wraper">
-            <input className="login" type="text" name="firstPass" value={userIn.firstPass} placeholder="First password" onChange={ handleChangePass } />
-            <input className="login" type="text" name="secondPass" value={userIn.secondPass} placeholder="Second password" onChange={ handleChangePass } />
+            <input style={{color:'white'}} className="login" type="password" name="firstPass" value={userIn.firstPass} placeholder="First password" onChange={ handleChangePass } />
+            <input style={{color:'white'}} className="login" type="password" name="secondPass" value={userIn.secondPass} placeholder="Second password" onChange={ handleChangePass } />
             <input className="submit" type="submit" onClick={getLogIn}/>
             {wrongPassMessage !== ''? <h3>{wrongPassMessage}</h3>: null}
         </div>

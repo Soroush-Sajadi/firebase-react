@@ -14,12 +14,30 @@
 }
 .about-me-image img {
     width: 300px;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 7px;
 }
 .about-me-biografi h3 {
     color: white;
     font-size: 20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-top: 70px;
+    margin-top: 50px;
     text-align: left;
 
+}
+@media screen and (max-width: 850px) {
+    .profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .about-me-biografi {
+        width: 100%;
+        padding: 5%;
+    }
+    .about-me-image {
+        width: 100%;
+        
+    }
 }

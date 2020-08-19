@@ -16,7 +16,7 @@ function AddImageRemote ({ lastimageName, updadateReRender, updateNewImageReques
 
     const postData = async () => {
         setLoadingBar(true);
-        const url = 'http://localhost:3000/add/image';
+        const url = 'https://us-central1-makan-5c9d1.cloudfunctions.net/app/add/image';
         const formData = new FormData();
         formData.append( 'file', file, lastimageName)
         axios.post(url, formData, {

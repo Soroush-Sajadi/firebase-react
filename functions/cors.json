@@ -1,0 +1,7 @@
+[
+    {
+      "origin": ["https://makan-5c9d1.firebaseapp.com/"],
+      "method": ["GET, POST"],
+      "maxAgeSeconds": 3600
+    }
+  ]

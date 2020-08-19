@@ -10,7 +10,7 @@ function Gallery({ menuState,language, upDateMenuState, uppDateLanguage }) {
 	const getData = async () => {
 		const albumName = window.location.href.split('/').pop()
 		const newAlbum = albumName.charAt(0).toUpperCase() + albumName.slice(1)
-			await fetch(`http://localhost:3000/images/${newAlbum}`)
+			await fetch(`https://us-central1-makan-5c9d1.cloudfunctions.net/app/images/${newAlbum}`)
 				.then(res => res.json())
 				.then(res => setData(res))
 	}

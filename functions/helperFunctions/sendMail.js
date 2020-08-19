@@ -8,7 +8,6 @@ const auth = {
         domain: `${process.env.DOMAIN}`
     }
 }
-console.log(auth)
 
 const transport = nodeMailer.createTransport(mailGun(auth));
 

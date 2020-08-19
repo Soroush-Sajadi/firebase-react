@@ -32,7 +32,7 @@ function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 	}
 
 	const postData = async () => {
-		await fetch (`http://localhost:3000/message`, {
+		await fetch (`https://us-central1-makan-5c9d1.cloudfunctions.net/app/message`, {
           	method: 'post',
           	headers: {'Content-Type':'application/json'},
           	body: JSON.stringify({
@@ -110,20 +110,24 @@ function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 					<div className="face1"></div>
 					<div className="face2"></div>
 					</div>
-				{/* <a href="https://www.facebook.com/makankamfar/"> */}
+				
 				<div className="hexagon">
+				<a style={{textDecoration:'none'}} href="https://www.facebook.com/makankamfar/">
 					Facebook
+				</a>
 					<div className="face1"></div>
 					<div className="face2"></div>
 				</div>
-				{/* </a> */}
-				{/* <a href ="https://www.instagram.com/makan.photographer/?fbclid=IwAR2hxzY324MmirhavUb7VbD38bsZeGQsPPKuWciOuEe6S5e-XUA9vzrqkk4"> */}
+				
+				
 				<div className="hexagon">
+				<a style={{textDecoration:'none'}} href ="https://www.instagram.com/makan.photographer/?fbclid=IwAR2hxzY324MmirhavUb7VbD38bsZeGQsPPKuWciOuEe6S5e-XUA9vzrqkk4">
 					Instagram
+				</a>
 					<div className="face1"></div>
 					<div className="face2"></div>
 				</div>
-				{/* </a> */}
+				
 				<div className="hexagon" onClick={ showTelNumber }>
 					{ showTel ? <p style={{fontSize:'12px'}}>+46-76 211 57 51</p> : <p>Tel</p> } 
 					<div className="face1"></div>

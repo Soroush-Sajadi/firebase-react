@@ -8,10 +8,12 @@ function DeleteImageRemote ({ imageName, updadateReRender }) {
     const [ message, setMessage ] = useState('')
 
     const getImage = async () => {
-        const url = `http://localhost:3000/delete/image/${imageName}`
+        console.log(imageName)
+        const url = `https://us-central1-makan-5c9d1.cloudfunctions.net/app/delete/image/${imageName}`
         await fetch(url)
             .then(res => res.json())
-            .then(res => res === 'Its done' ? updadateReRender(true): null)
+            .then(res => console.log(res))
+            // .then(res => res === 'Its done' ? console.log(res) || updadateReRender(true): null)
     }
 
     const deleteImage = async () => {

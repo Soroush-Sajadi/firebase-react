@@ -228,3 +228,9 @@ fieldset {
   cursor: pointer;
   
 }
+.hexagon a {
+  color: #888;
+}
+.hexagon a:hover {
+  color: #fff;
+}

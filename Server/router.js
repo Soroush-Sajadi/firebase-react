@@ -79,8 +79,8 @@ const storage = firebase.storage();
 
 //______________________________________________________________________________________________________________________________________//
 // Helper functions
-const { sendMail } = require('./helperFunctions/sendMail')
-const { imageName } = require('./helperFunctions/setName')
+const { sendMail } = require('../functions/helperFunctions/sendMail')
+const { imageName } = require('../functions/helperFunctions/setName')
 
 
 //___________________________________________________________________________________________________________________________

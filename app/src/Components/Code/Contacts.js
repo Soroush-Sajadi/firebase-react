@@ -61,7 +61,7 @@ function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 	  {!menuState ? 
 	  	<div className="wrapper-contact">
 			{mail ? 
-			<div class="container" > 
+			<div className="container" > 
 				
 			<div id="contact" action=""  >
 			<img className="close" src={close} alt="close" onClick={sendMail}/>

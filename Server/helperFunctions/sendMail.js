@@ -9,7 +9,6 @@ const auth = {
     }
 }
 
-console.log(auth)
 const transport = nodeMailer.createTransport(mailGun(auth));
 
 const sendMail = (name, email, subject, message, cb ) => {

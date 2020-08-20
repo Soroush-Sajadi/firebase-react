@@ -20,7 +20,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
 
 
     const getData = async () => {
-        await fetch (`https://us-central1-makan-5c9d1.cloudfunctions.net/app/images/${gallery}`)
+        await fetch (`http://localhost:3000/images/${gallery}`)
             .then(res => res.json())
             .then(res => setData(res) || setLastImageName((res[res.length-1].name) ))
             
@@ -34,7 +34,7 @@ function RemoteGallery ({gallery, updateRender, updateAuthenticate}) {
 
     const postFileNewImage = (oldImage, imageIndex) => {
         setLoadingBar(true);
-        const url = 'https://us-central1-makan-5c9d1.cloudfunctions.net/app/galleryChange';
+        const url = 'http://localhost:3000/galleryChange';
         const formData = new FormData();
         formData.append( 'file', file, [ oldImage, imageIndex ])
         axios.post(url, formData, {

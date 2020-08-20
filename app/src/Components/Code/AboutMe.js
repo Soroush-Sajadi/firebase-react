@@ -17,12 +17,17 @@ function AboutMe({ menuState, language,upDateMenuState, uppDateLanguage }) {
             </div>
             <div className="about-me-biografi">
               {language === 'English' ? 
-                <h3> Makan is an Irainian photografer with more than 10 years exprience. He started his career 
-                  with passion and love. To be a photografer needs both good undrestanding of art and perspective 
-                  Makan has taken pictures in many different countries
+                <h3> Makan is an Iranian photographer with more than 10 years of experience. His career started out from 
+                    pure passion and love. He believes that To be a photographer needs both good understanding of art and perspective. 
+                    Makan has had photo shoots in many different countries such as Iran, Georgia, Turkey, Dubai etc.
                 </h3>
                 :
-                <h3> Makan är en Iranskt fotografer med mer än 10 år erfarenhet.</h3>
+                <h3>
+                  Makan är en iransk fotograf med mer än 10 års erfarenhet. Hans karriär tog avstamp från ren
+                  kärlek och passion. Han tror att en bra fotograf behöver både god förståelse för konst och perspektiv.
+                  Makan har haft fotograferingar i många olika länder, såsom Iran, Georgien, Turkiet, Dubai m.m.
+
+                  </h3>
               } 
             </div>
             

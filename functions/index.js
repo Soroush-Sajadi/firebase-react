@@ -1,9 +1,7 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const app = express();
-// const cors = require('cors');
 const cors = require('cors');
-// const cors = require('cors');
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 const fileUpload = require('express-fileupload');
 const path = require('path');
@@ -47,8 +45,8 @@ const storage = firebase.storage();
 
 //______________________________________________________________________________________________________________________________________//
 // Helper functions
-const { sendMail } = require('./helperFunctions/sendMail')
-const { imageName } = require('./helperFunctions/setName')
+const { sendMail } = require('../Server/helperFunctions/sendMail')
+const { imageName } = require('../Server/helperFunctions/setName')
 
 
 //___________________________________________________________________________________________________________________________
@@ -106,7 +104,8 @@ app.post('/message', (req, res) => {
 })
 
 app.post('/cathegoryChange',async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    cors({ origin: true });
+    // res.setHeader("Access-Control-Allow-Origin", "*");
     // res.setHeader("Access-Control-Allow-Credentials", "true");
     // res.setHeader("Access-Control-Max-Age", "1800");
     // res.setHeader("Access-Control-Allow-Headers", "content-type");

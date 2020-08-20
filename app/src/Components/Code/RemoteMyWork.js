@@ -64,7 +64,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         // const user = auth.currentUser;
         // const token = user && (await user.getIdToken());
         // console.log(user)
-            await fetch(`https://us-central1-makan-5c9d1.cloudfunctions.net/app/password/${userIn.firstPass}/${userIn.secondPass}`,{
+            await fetch(`http://localhost:3000/password/${userIn.firstPass}/${userIn.secondPass}`,{
     //             headers: {
     //                 'Content-Type': 'application/json',
     //                 Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
 
     const getData = async() => {
         setWrongPassMessage('');
-            await fetch(`https://us-central1-makan-5c9d1.cloudfunctions.net/app/`,{
+            await fetch(`http://localhost:3000/`,{
                 // headers: {
                 //     'Access-Control-Allow-Origin': '*'
                 //   }
@@ -95,7 +95,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         setLoadingBar(true);
         // const headers = new Headers();
         // headers.append('Access-Control-Allow-Origin', 'https://us-central1-makan-5c9d1.cloudfunctions.net/app/');
-        const url = 'https://us-central1-makan-5c9d1.cloudfunctions.net/app/cathegoryChange';
+        const url = 'http://localhost:3000/cathegoryChange';
         const formData = new FormData();
         formData.append( 'file', file,[oldImage, imageIndex])
         axios.post(url, formData,  {

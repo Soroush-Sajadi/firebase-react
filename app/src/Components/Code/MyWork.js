@@ -8,7 +8,7 @@ function MyWork({ language, uppDateTitle, menuState, upDateMenuState, uppDateLan
   const [ data, setData ] = useState([]);
   
   const getData = async () => {
-      await fetch (`http://localhost:3000/`)
+      await fetch (`https://us-central1-makan-5c9d1.cloudfunctions.net/app/`)
         .then(res => res.json())
         .then(res => setData(res))
   }

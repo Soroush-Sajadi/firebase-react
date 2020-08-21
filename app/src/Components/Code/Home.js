@@ -4,7 +4,6 @@ import OpenMenu from './OpenMenu';
 import '../Style/Home.css';
 
 function Home({menuState,language, upDateMenuState, uppDateLanguage}) {
-  console.log(window.innerWidth, window.innerHeight)
   return (
     <>
     {!menuState ?

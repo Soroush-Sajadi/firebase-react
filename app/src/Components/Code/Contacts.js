@@ -32,7 +32,7 @@ function Contacts({menuState, language, upDateMenuState, uppDateLanguage}) {
 	}
 
 	const postData = async () => {
-		await fetch (`http://localhost:3000/message`, {
+		await fetch (`https://us-central1-makan-5c9d1.cloudfunctions.net/app/message`, {
           	method: 'post',
           	headers: {'Content-Type':'application/json'},
           	body: JSON.stringify({

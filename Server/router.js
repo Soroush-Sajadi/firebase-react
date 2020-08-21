@@ -16,10 +16,10 @@ global.XMLHttpRequest = require("xhr2");
 
 const bodyParser = require('body-parser');
 const config = {
-    apiKey: 'AIzaSyDLmu0djMfie3aJmxygeSFatfxl-9gB_u4',
-    authDomain: 'makan-5c9d1.firebaseio.com',
-    databaseURL: 'https://makan-5c9d1.firebaseio.com',
-    storageBucket: 'makan-5c9d1.appspot.com',
+    apiKey: 'xxxxxx',
+    authDomain: 'xxxxxx',
+    databaseURL: 'xxxxx',
+    storageBucket: 'xxxxxx',
     
   };
 firebase.initializeApp(config);

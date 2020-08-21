@@ -64,7 +64,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         // const user = auth.currentUser;
         // const token = user && (await user.getIdToken());
         // console.log(user)
-            await fetch(`http://localhost:3000/password/${userIn.firstPass}/${userIn.secondPass}`,{
+            await fetch(`https://us-central1-makan-5c9d1.cloudfunctions.net/app/password/${userIn.firstPass}/${userIn.secondPass}`,{
     //             headers: {
     //                 'Content-Type': 'application/json',
     //                 Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
 
     const getData = async() => {
         setWrongPassMessage('');
-            await fetch(`http://localhost:3000/`,{
+            await fetch(`https://us-central1-makan-5c9d1.cloudfunctions.net/app`,{
                 // headers: {
                 //     'Access-Control-Allow-Origin': '*'
                 //   }
@@ -95,29 +95,11 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
         setLoadingBar(true);
         // const headers = new Headers();
         // headers.append('Access-Control-Allow-Origin', 'https://us-central1-makan-5c9d1.cloudfunctions.net/app/');
-        const url = 'http://localhost:3000/cathegoryChange';
+        const url = 'https://us-central1-makan-5c9d1.cloudfunctions.net/app/cathegoryChange';
         const formData = new FormData();
         formData.append( 'file', file,[oldImage, imageIndex])
         axios.post(url, formData,  {
-            // mode:'no-cors',
-            // headers: {
-            //     "Content-Type": "application/json"
-            // },
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            // headers: {
-            //     "Content-type": "multipart/form-data",
-            // },
-            // Origin: 'https://makan-5c9d1.web.app',
-            // credentials: 'include',
-            // method: 'POST',
-            // headers: headers,
-            // mode:'cors',
-            // headers: {
-            //     'Content-Type': 'application/x-www-form-urlencoded'
-            // },
-            
+           
             onUploadProgress: (ProgressEvent) => {
                 let progress = Math.round(
                 ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
@@ -126,19 +108,7 @@ function RemoteMyWork ({ updateRender, updateGallery, remainAuthenticated }) {
             
         })
         .then(res => res.data === 'Its done' ? setReFetch(true) || setLoadingBar(false): null)
-        // .then(res => {
-        //     console.log(res);
-        //     getFile({ name: res.newData.name,
-        //              path: 'http://localhost:4500' + res.newData.path
-        //            })
-        // }).catch(err => console.log(err))}
-        // await fetch (url, {
-        //   	method: 'post',
-        //   	headers: {'Content-Type':'application/json'},
-        //   	body: JSON.stringify({
-        //   	"oldImage": oldImage,
-        //   	})
-		// })
+        .catch(err => console.log(err));
     }
 
 	const postData =  (e) => {
